@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imagem"
+        android:layout_width="76dp"
+        android:layout_height="73dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="24dp"
+        app:srcCompat="@drawable/doctor" />
+
+    <TextView
+        android:id="@+id/nomeMedico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/imagem"
+        android:layout_marginStart="134dp"
+        android:text="Aecio Barros"
+        android:textSize="15dp"
+
+        />
+
+    <TextView
+        android:id="@+id/crm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/nomeMedico"
+        android:layout_marginTop="58dp"
+        android:text="CRM" />
+
+    <TextView
+        android:id="@+id/uf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/nomeMedico"
+        android:layout_below="@+id/imagem"
+        android:text="UF" />
+</RelativeLayout>

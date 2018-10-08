@@ -8,12 +8,14 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/edtPri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="19dp"
-        android:text="Princípio Ativo"
+        android:text="Princípio Ativo:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtLabBarras" />
 
@@ -21,30 +23,35 @@
         android:id="@+id/edtPrincBarras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="14dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toTopOf="@+id/textView7" />
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="17dp"
+        app:layout_constraintStart_toStartOf="@+id/edtPri"
+        app:layout_constraintTop_toBottomOf="@+id/edtPri" />
 
     <TextView
         android:id="@+id/edtLabBarras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="17dp"
+        app:layout_constraintStart_toStartOf="@+id/edtLa"
+        app:layout_constraintTop_toTopOf="@+id/edtLa" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/edtLa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="19dp"
-        android:text="Laboratório"
+        android:text="Laboratório:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtDescBarras" />
 
@@ -52,29 +59,35 @@
         android:id="@+id/edtDescBarras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="17dp"
+        app:layout_constraintStart_toStartOf="@+id/edtDes"
+        app:layout_constraintTop_toTopOf="@+id/edtDes" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/edtDes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="124dp"
-        android:text="Descrição"
+        android:text="Descrição:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/edtClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="26dp"
-        android:text="Classe Terapêutca"
+        android:text="Classe Terapêutca:"
+        android:textColor="@color/colorPrimary"
+        android:textSize="17dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtPrincBarras" />
 
@@ -82,23 +95,27 @@
         android:id="@+id/edtClassBarras"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/textView8" />
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="17dp"
+        app:layout_constraintStart_toStartOf="@+id/edtClass"
+        app:layout_constraintTop_toBottomOf="@+id/edtClass" />
 
     <EditText
         android:id="@+id/edtEntrada"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="Codigo de barras"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/edtDes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.396" />
@@ -107,9 +124,9 @@
         android:id="@+id/btnBusca"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/edit_text_border"
         android:backgroundTint="@color/colorPrimary"
         android:drawableRight="@drawable/ic_search_branco_24dp"
@@ -124,10 +141,10 @@
         android:id="@+id/addCod"
         android:layout_width="35dp"
         android:layout_height="28dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/edtEntrada"
         app:layout_constraintEnd_toEndOf="@+id/edtEntrada"
         app:layout_constraintHorizontal_bias="0.945"
@@ -136,7 +153,19 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/barcode3" />
 
-
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.362"
+        app:srcCompat="@drawable/medicamento256" />
 
 
 </android.support.constraint.ConstraintLayout>

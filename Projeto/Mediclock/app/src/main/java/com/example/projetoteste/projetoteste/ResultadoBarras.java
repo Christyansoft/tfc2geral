@@ -1,5 +1,6 @@
 package com.example.projetoteste.projetoteste;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,11 +33,13 @@ import model.Medicamento;
 public class ResultadoBarras extends AppCompatActivity {
 
     TextView edtLab, edtPrinc, edtClass, edtDesc;
+    TextView desc, lab, prin, clas;
     EditText edtEnt;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo("7896637023658");
+    Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo("7896026302784");
     Button buscar;
     ImageButton scanner;
+    private ProgressDialog progress;
 
     private ArrayList<Medicamento> arrayList = new ArrayList<>();
     Medicamento med = new Medicamento();
@@ -48,6 +51,11 @@ public class ResultadoBarras extends AppCompatActivity {
 
      //   med = null;
 
+        desc = findViewById(R.id.edtDes);
+        lab = findViewById(R.id.edtLa);
+        prin = findViewById(R.id.edtPri);
+        clas = findViewById(R.id.edtClass);
+
         edtEnt = findViewById(R.id.edtEntrada);
         edtDesc = findViewById(R.id.edtDescBarras);
         edtLab = findViewById(R.id.edtLabBarras);
@@ -55,6 +63,8 @@ public class ResultadoBarras extends AppCompatActivity {
         edtClass = findViewById(R.id.edtClassBarras);
         buscar = findViewById(R.id.btnBusca);
         scanner = findViewById(R.id.addCod);
+
+        desabilita();
 
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +85,13 @@ public class ResultadoBarras extends AppCompatActivity {
                     edtEnt.setError("Informe um codigo ou digitalize para pesquisar");
                 }
                 else {
+                    desabilita();
+                    limpar();
+                      progress = new ProgressDialog(ResultadoBarras.this);
+                      progress.setMessage("Carregando dados");
+                      progress.show();
+
+                    final Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo(edtEnt.getText().toString());
 
                     medicamentoRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -85,11 +102,13 @@ public class ResultadoBarras extends AppCompatActivity {
                                     @Override
                                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                                        habilita();
                                         Medicamento med = dataSnapshot.getValue(Medicamento.class);
                                         edtDesc.setText(med.getNomeMedicamento());
                                         edtLab.setText(med.getNomeLaboratorio());
                                         edtPrinc.setText(med.getNomePrincipioAtivo());
                                         edtClass.setText(med.getNomeClasseTerapeutica());
+                                        progress.dismiss();
 
                                     }
 
@@ -116,7 +135,8 @@ public class ResultadoBarras extends AppCompatActivity {
 
                             }
                             else{
-                                Toast.makeText(ResultadoBarras.this, "nao existe", Toast.LENGTH_SHORT).show();
+                                progress.dismiss();
+                                Toast.makeText(ResultadoBarras.this, "Nenhum dado encontrado", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -132,6 +152,28 @@ public class ResultadoBarras extends AppCompatActivity {
 
     }
 
+    public void desabilita(){
+
+        desc.setVisibility(View.INVISIBLE);
+        lab.setVisibility(View.INVISIBLE);
+        prin.setVisibility(View.INVISIBLE);
+        clas.setVisibility(View.INVISIBLE);
+    }
+
+    public void habilita(){
+
+        desc.setVisibility(View.VISIBLE);
+        lab.setVisibility(View.VISIBLE);
+        prin.setVisibility(View.VISIBLE);
+        clas.setVisibility(View.VISIBLE);
+    }
+
+    public void limpar(){
+        edtDesc.setText("");
+        edtLab.setText("");
+        edtPrinc.setText("");
+        edtClass.setText("");
+    }
 
 
  }

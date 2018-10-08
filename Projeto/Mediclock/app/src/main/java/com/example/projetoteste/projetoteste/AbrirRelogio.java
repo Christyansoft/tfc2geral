@@ -34,13 +34,12 @@ public class AbrirRelogio extends AppCompatActivity {
     List<String> list;
     Alarme alarme2;
     Medicamento med;
-    CadastroTratamento ct;
     PosologiaDAO posologiaDAO;
     long retornoDB;
     ArrayList<Medicamento> arrayMedicamento;
 
     ImageView clock;
-    Button iniciarAlarme, desativar;
+    Button salvar, desativar;
 
     private TimePicker alarmTimePicker;
     String hora, minuto;
@@ -65,7 +64,7 @@ public class AbrirRelogio extends AppCompatActivity {
         textView.setVisibility(View.INVISIBLE);
         alarmTimePicker = findViewById(R.id.relogio);
         alarmTimePicker.setIs24HourView(true);
-        iniciarAlarme = findViewById(R.id.btnAlarme);
+        salvar = findViewById(R.id.btnAlarme);
         desativar = findViewById(R.id.btnDesativar);
         desativar.setVisibility(View.INVISIBLE);
 
@@ -84,7 +83,7 @@ public class AbrirRelogio extends AppCompatActivity {
 
         if(alarme2!=null){
             alarmTimePicker.setVisibility(View.INVISIBLE);
-            iniciarAlarme.setVisibility(View.INVISIBLE);
+            salvar.setVisibility(View.INVISIBLE);
             textView.setVisibility(View.VISIBLE);
             spIntervalo.setVisibility(View.INVISIBLE);
             clock.setVisibility(View.VISIBLE);
@@ -101,7 +100,7 @@ public class AbrirRelogio extends AppCompatActivity {
         final Calendar calendar = Calendar.getInstance();
 
 
-        iniciarAlarme.setOnClickListener(new View.OnClickListener() {
+        salvar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -340,6 +339,7 @@ public class AbrirRelogio extends AppCompatActivity {
         spIntervalo = findViewById(R.id.spinner);
 
         list = new ArrayList<String>();
+        list.add("Selecione o intervalo");
         list.add("2 em 2 minutos");
         list.add("1 em 1 hora");
         list.add("2 em 2 horas");

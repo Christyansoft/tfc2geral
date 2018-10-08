@@ -167,12 +167,4 @@ public class ClassePrincipal extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onNewIntent(Intent intent) {
-
-        String codigoBarras = intent.getStringExtra("resultadoCodigo");
-        TextView textView = findViewById(R.id.resultado);
-        textView.setText(codigoBarras);
-
-    }
 }

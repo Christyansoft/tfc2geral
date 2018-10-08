@@ -10,30 +10,33 @@
         android:id="@+id/btnAlarme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="156dp"
+        android:layout_marginStart="132dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/edit_text_border"
-        android:backgroundTint="#b3c9c9"
+        android:backgroundTint="@color/colorPrimary"
         android:drawableLeft="@drawable/ic_save_black_24dp"
+        android:textColor="#FFFF"
         android:padding="10dp"
         android:text="Salvar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relogio"
-        app:layout_constraintVertical_bias="0.603" />
+        app:layout_constraintVertical_bias="0.9" />
 
     <TimePicker
         android:id="@+id/relogio"
         android:layout_width="match_parent"
         android:layout_height="349dp"
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="224dp"
         android:numbersTextColor="#FFFF"
-        android:numbersBackgroundColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"></TimePicker>
+        app:layout_constraintStart_toStartOf="parent"
+        tools:headerBackground="@color/colorPrimary">
+
+    </TimePicker>
 
     <Button
         android:id="@+id/btnDesativar"
@@ -44,7 +47,8 @@
         android:layout_marginStart="8dp"
         android:background="@drawable/edit_text_border"
         android:drawableLeft="@drawable/ic_disable_alarm"
-        android:backgroundTint="#b3c9c9"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="#FFFF"
         android:padding="10dp"
         android:text="Desativar Alarme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -110,6 +114,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.149"
         app:srcCompat="@drawable/clock" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Informe a quantidade da medicação"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
 
 </android.support.constraint.ConstraintLayout>

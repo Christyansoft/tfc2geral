@@ -43,7 +43,7 @@ public class AbrirRelogio extends AppCompatActivity {
     ImageView clock;
     Button salvar, desativar, abrirR;
 
-    private TimePicker alarmTimePicker;
+    private TimePicker relogio;
     String hora, minuto;
 
     Context context;
@@ -61,15 +61,13 @@ public class AbrirRelogio extends AppCompatActivity {
 
         preencherS();
 
-        abrirR = findViewById(R.id.button2);
+        abrirR = findViewById(R.id.btnAddH);
 
         quant = findViewById(R.id.edtQtd);
         textView = findViewById(R.id.textView);
         medInfo = findViewById(R.id.medInfo);
         medInfo.setVisibility(View.INVISIBLE);
         textView.setVisibility(View.INVISIBLE);
-        alarmTimePicker = findViewById(R.id.relogio);
-        alarmTimePicker.setIs24HourView(true);
         salvar = findViewById(R.id.btnAlarme);
         desativar = findViewById(R.id.btnDesativar);
         desativar.setVisibility(View.INVISIBLE);
@@ -89,7 +87,6 @@ public class AbrirRelogio extends AppCompatActivity {
 
         if(alarme2!=null){
             quant.setVisibility(View.INVISIBLE);
-            alarmTimePicker.setVisibility(View.INVISIBLE);
             salvar.setVisibility(View.INVISIBLE);
             textView.setVisibility(View.VISIBLE);
             spIntervalo.setVisibility(View.INVISIBLE);
@@ -112,10 +109,36 @@ public class AbrirRelogio extends AppCompatActivity {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(AbrirRelogio.this);
                 View view1 = getLayoutInflater().inflate(R.layout.diagrelogio, null);
-
+                relogio = view1.findViewById(R.id.relogio);
+                Button ok = view1.findViewById(R.id.ok);
+                relogio.setIs24HourView(true);
                 builder.setView(view1);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+
+                ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String hora = String.valueOf(relogio.getHour());
+                        String minuto = String.valueOf(relogio.getMinute());
+
+
+                        if(relogio.getHour()==0){
+                            hora +=0;
+                        }else if(relogio.getHour()<10){
+                            hora="0"+relogio.getHour();
+                        }
+
+                        if(relogio.getMinute()==0){
+                            minuto+=0;
+                        }else if(relogio.getMinute()<10){
+                            minuto="0"+relogio.getMinute();
+                        }
+
+
+
+                    }
+                });
 
             }
         });
@@ -134,18 +157,18 @@ public class AbrirRelogio extends AppCompatActivity {
 
                 } else {
 
-                    final int hour = alarmTimePicker.getCurrentHour();
-                    final int minute = alarmTimePicker.getCurrentMinute();
+                 //   final int hour = alarmTimePicker.getCurrentHour();
+                 //   final int minute = alarmTimePicker.getCurrentMinute();
 
-                    hora = String.valueOf(hour);
-                    minuto = String.valueOf(minute);
+                //    hora = String.valueOf(hour);
+                 //   minuto = String.valueOf(minute);
 
                     Random gerador = new Random();
 
                     Calendar now = Calendar.getInstance();
                     Calendar alarm = Calendar.getInstance();
-                    alarm.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                    alarm.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+              //      alarm.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+              //      alarm.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
                     alarm.set(Calendar.SECOND, 0);
                     alarm.set(Calendar.MILLISECOND, 0);
 
@@ -170,8 +193,8 @@ public class AbrirRelogio extends AppCompatActivity {
                     if(!alarm.after(Calendar.getInstance()))
                         alarm.roll(Calendar.DATE, true);
 
-                    calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                    calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                //    calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                 //   calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
                     int idPendingAnterior = 1;
 
@@ -182,8 +205,8 @@ public class AbrirRelogio extends AppCompatActivity {
 
                     Alarme alarme = new Alarme();
 
-                    alarme.setHora(alarmTimePicker.getCurrentHour());
-                    alarme.setMinuto(alarmTimePicker.getCurrentMinute());
+               //     alarme.setHora(alarmTimePicker.getCurrentHour());
+               //     alarme.setMinuto(alarmTimePicker.getCurrentMinute());
                     alarme.setSegundo(0);
                     alarme.setLegenda(med.getNomeMedicamento());
                     alarme.setIdPending(idPendingAnterior);

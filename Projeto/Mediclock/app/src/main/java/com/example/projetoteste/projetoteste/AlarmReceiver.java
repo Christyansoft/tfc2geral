@@ -28,16 +28,17 @@ public class AlarmReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String legenda = intent.getStringExtra("legenda");
+        String quantidade = intent.getStringExtra("quantidade");
         int idPending = intent.getIntExtra("idPending",0);
         int intervalo = intent.getIntExtra("intervalo",0);
 
         Intent serviceIntent = new Intent(context, AlarmService.class);
 
-            serviceIntent.putExtra("legenda", legenda);
-            serviceIntent.putExtra("idPending", idPending);
-            serviceIntent.putExtra("intervalo", intervalo);
-          //  serviceIntent.putExtra("idPending", idPending);
-            context.startService(serviceIntent);
+        serviceIntent.putExtra("legenda", legenda);
+        serviceIntent.putExtra("idPending", idPending);
+        serviceIntent.putExtra("intervalo", intervalo);
+        serviceIntent.putExtra("quantidade", quantidade);
+        context.startService(serviceIntent);
 
     }
 

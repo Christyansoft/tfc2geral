@@ -7,12 +7,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +41,7 @@ public class AbrirRelogio extends AppCompatActivity {
     ArrayList<Medicamento> arrayMedicamento;
 
     ImageView clock;
-    Button salvar, desativar;
+    Button salvar, desativar, abrirR;
 
     private TimePicker alarmTimePicker;
     String hora, minuto;
@@ -48,6 +50,7 @@ public class AbrirRelogio extends AppCompatActivity {
 
     ArrayList<Alarme> arrayList;
     TextView textView, medInfo;
+    EditText quant;
     Spinner spIntervalo;
     String idTratamento;
 
@@ -58,6 +61,9 @@ public class AbrirRelogio extends AppCompatActivity {
 
         preencherS();
 
+        abrirR = findViewById(R.id.button2);
+
+        quant = findViewById(R.id.edtQtd);
         textView = findViewById(R.id.textView);
         medInfo = findViewById(R.id.medInfo);
         medInfo.setVisibility(View.INVISIBLE);
@@ -82,6 +88,7 @@ public class AbrirRelogio extends AppCompatActivity {
         idTratamento = i2.getStringExtra("idTratamento");
 
         if(alarme2!=null){
+            quant.setVisibility(View.INVISIBLE);
             alarmTimePicker.setVisibility(View.INVISIBLE);
             salvar.setVisibility(View.INVISIBLE);
             textView.setVisibility(View.VISIBLE);
@@ -99,24 +106,48 @@ public class AbrirRelogio extends AppCompatActivity {
 
         final Calendar calendar = Calendar.getInstance();
 
+        abrirR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(AbrirRelogio.this);
+                View view1 = getLayoutInflater().inflate(R.layout.diagrelogio, null);
+
+                builder.setView(view1);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        });
 
         salvar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                final int hour = alarmTimePicker.getCurrentHour();
-                final int minute = alarmTimePicker.getCurrentMinute();
+                if (quant.getText().toString().equals("")) {
+                    quant.setError("Informe a quantidade da medicação");
+                } else if (spIntervalo.getSelectedItemPosition() == 0) {
 
-                hora = String.valueOf(hour);
-                minuto = String.valueOf(minute);
+                    TextView errorText = (TextView) spIntervalo.getSelectedView();
+                    errorText.setError("Informe o intervalo");
 
-                Random gerador = new Random();
+                } else {
 
-                Calendar now = Calendar.getInstance();
-                Calendar alarm = Calendar.getInstance();
-                alarm.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                alarm.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                    final int hour = alarmTimePicker.getCurrentHour();
+                    final int minute = alarmTimePicker.getCurrentMinute();
+
+                    hora = String.valueOf(hour);
+                    minuto = String.valueOf(minute);
+
+                    Random gerador = new Random();
+
+                    Calendar now = Calendar.getInstance();
+                    Calendar alarm = Calendar.getInstance();
+                    alarm.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                    alarm.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
 
                 int segundo = 0;
 
@@ -131,72 +162,74 @@ public class AbrirRelogio extends AppCompatActivity {
 
                 }
 
-                if (alarm.before(now)) {
-                    //Add 1 day if time selected before now
-                    alarm.add(Calendar.DAY_OF_MONTH, 1);
-                }
+//                    if (alarm.before(now)) {
+//                        //Add 1 day if time selected before now
+//                        alarm.add(Calendar.DAY_OF_MONTH, 1);
+//                    }
 
-                calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                    if(!alarm.after(Calendar.getInstance()))
+                        alarm.roll(Calendar.DATE, true);
 
-                int idPendingAnterior = 1;
+                    calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                    calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
-                if(!arrayList.isEmpty()){
-                     idPendingAnterior = arrayList.get(arrayList.size()-1).getIdAlarme();
-                     idPendingAnterior = idPendingAnterior+1;
-                }
+                    int idPendingAnterior = 1;
 
-                Alarme alarme = new Alarme();
-
-                alarme.setHora(alarmTimePicker.getCurrentHour());
-                alarme.setMinuto(alarmTimePicker.getCurrentMinute());
-                alarme.setSegundo(segundo+3);
-                alarme.setLegenda(med.getNomeMedicamento());
-                alarme.setIdPending(idPendingAnterior);
-
-                Toast.makeText(AbrirRelogio.this, "segundo "+alarme.getSegundo(), Toast.LENGTH_SHORT).show();
-
-                int intervalo = selecionaIntervalo();
-
-                if(intervalo!=0) {
-                    alarme.setRepeating(somar(calendar, intervalo));
-                }
-                else{
-                    alarme.setRepeating("2 em 2 minutos");
-                }
-                alarme.setIdMedicamento(med.getIdMedicamento());
-                alarme.setIdTratameto(idTratamento);
-
-                retornoDB = posologiaDAO.salvarAlarme(alarme);
-
-                if (retornoDB == -1){
-                    //deu erro
-                    Toast.makeText(AbrirRelogio.this, "Erro na gravação", Toast.LENGTH_SHORT).show();
-                }else{
-
-                    //sucesso
-                    Toast.makeText(AbrirRelogio.this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-
-                    Intent myIntent = new Intent(context, AlarmReceiver.class);
-                    myIntent.putExtra("legenda", med.getNomeMedicamento());
-                    myIntent.putExtra("idPending", idPendingAnterior);
-                    if(intervalo==0) {
-                        myIntent.putExtra("intervalo", intervalo);
-                    }
-                    else{
-                        myIntent.putExtra("intervalo", 24 / intervalo);
+                    if (!arrayList.isEmpty()) {
+                        idPendingAnterior = arrayList.get(arrayList.size() - 1).getIdAlarme();
+                        idPendingAnterior = idPendingAnterior + 1;
                     }
 
-                    PendingIntent pending_intent = PendingIntent.getBroadcast(AbrirRelogio.this, idPendingAnterior, myIntent, 0);
-                    AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                    Alarme alarme = new Alarme();
 
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), pending_intent);
+                    alarme.setHora(alarmTimePicker.getCurrentHour());
+                    alarme.setMinuto(alarmTimePicker.getCurrentMinute());
+                    alarme.setSegundo(0);
+                    alarme.setLegenda(med.getNomeMedicamento());
+                    alarme.setIdPending(idPendingAnterior);
+
+                    int intervalo = selecionaIntervalo();
+
+                    if (intervalo != 0) {
+                        alarme.setRepeating(somar(calendar, intervalo));
+                    } else {
+                        alarme.setRepeating("2 em 2 minutos");
+                    }
+                    alarme.setIdMedicamento(med.getIdMedicamento());
+                    alarme.setIdTratameto(idTratamento);
+
+                    retornoDB = posologiaDAO.salvarAlarme(alarme);
+
+                    if (retornoDB == -1) {
+                        //deu erro
+                        Toast.makeText(AbrirRelogio.this, "Erro na gravação", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        //sucesso
+                        Toast.makeText(AbrirRelogio.this, "Cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+
+                        Intent myIntent = new Intent(context, AlarmReceiver.class);
+                        myIntent.putExtra("legenda", med.getNomeMedicamento());
+                        myIntent.putExtra("idPending", idPendingAnterior);
+                        myIntent.putExtra("quantidade", quant.getText().toString());
+
+                        if (intervalo == 0) {
+                            myIntent.putExtra("intervalo", intervalo);
+                        } else {
+                            myIntent.putExtra("intervalo", 24 / intervalo);
+                        }
+
+                        PendingIntent pending_intent = PendingIntent.getBroadcast(AbrirRelogio.this, idPendingAnterior, myIntent, 0);
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), pending_intent);
 
 
-                    finish();
+                        finish();
+
+                    }
 
                 }
-
             }
 
         });
@@ -252,46 +285,44 @@ public class AbrirRelogio extends AppCompatActivity {
         int id2 = 0;
 
         switch (id){
-            case 0:
-                id2 = 0;
-                break;
-            case 1:
+
+            case 2:
                 id2= 24;
                 break;
-            case 2:
+            case 3:
                 id2= 12;
                 break;
-            case 3:
+            case 4:
                 id2= 8;
                 break;
-            case 4:
+            case 5:
                 id2= 6;
                 break;
-            case 5:
+            case 6:
                 id2= 4;
                 break;
-            case 6:
+            case 7:
                 id2 = 4;
                 break;
-            case 7:
+            case 8:
                 id2= 3;
                 break;
-            case 8:
-                id2 =3;
-                break;
             case 9:
-                id2= 2;
+                id2 =3;
                 break;
             case 10:
                 id2= 2;
                 break;
             case 11:
-                id2 = 2;
-                break;
-            case 12:
                 id2= 2;
                 break;
+            case 12:
+                id2 = 2;
+                break;
             case 13:
+                id2= 2;
+                break;
+            case 14:
                 id2 =1;
                 break;
         }

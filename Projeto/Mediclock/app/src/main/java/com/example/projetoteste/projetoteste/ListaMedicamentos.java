@@ -44,7 +44,7 @@ public class ListaMedicamentos extends AppCompatActivity {
     ArrayAdapter<Medicamento> mAdapter;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference medicamentoRef = databaseReference.child("medicamento");
+    DatabaseReference medicamentoRef = databaseReference.child("geral").child("medicamento");
 
     Toolbar toolbar;
     ListView minhalista;
@@ -54,9 +54,11 @@ public class ListaMedicamentos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_medicamentos);
 
-        progress = new ProgressDialog(this);
-
         this.context = this;
+        progress = new ProgressDialog(this);
+        progress.setMessage("Carregando dados");
+        progress.setCanceledOnTouchOutside(false);
+        progress.show();
 
         minhalista = findViewById(R.id.lvMedicamento);
 
@@ -127,7 +129,7 @@ public class ListaMedicamentos extends AppCompatActivity {
                         Medicamento me = dataSnapshot.getValue(Medicamento.class);
                         arrayMed.add(me);
                         mAdapter.notifyDataSetChanged();
-
+                        progress.dismiss();
                     }
 
                     @Override

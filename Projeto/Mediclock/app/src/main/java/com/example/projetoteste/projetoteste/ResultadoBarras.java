@@ -36,7 +36,6 @@ public class ResultadoBarras extends AppCompatActivity {
     TextView desc, lab, prin, clas;
     EditText edtEnt;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo("7896026302784");
     Button buscar;
     ImageButton scanner;
     private ProgressDialog progress;
@@ -91,7 +90,7 @@ public class ResultadoBarras extends AppCompatActivity {
                       progress.setMessage("Carregando dados");
                       progress.show();
 
-                    final Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo(edtEnt.getText().toString());
+                    final Query medicamentoRef = databaseReference.child("geral").child("medicamento").orderByChild("barras1").equalTo(edtEnt.getText().toString());
 
                     medicamentoRef.addValueEventListener(new ValueEventListener() {
                         @Override

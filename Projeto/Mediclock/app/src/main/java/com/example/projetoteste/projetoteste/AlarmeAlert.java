@@ -21,7 +21,7 @@ public class AlarmeAlert extends AppCompatActivity {
 
     private boolean alarmActive;
     Button desliga;
-    TextView text;
+    TextView med, quant, obs, dur;
 
 
     @Override
@@ -29,14 +29,16 @@ public class AlarmeAlert extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarme_alert);
 
-        text = findViewById(R.id.txtInfo);
+        med = findViewById(R.id.txtMed);
+        quant = findViewById(R.id.txtQuant);
+        obs = findViewById(R.id.txtObs);
+        dur = findViewById(R.id.txtDur);
 
         String legenda = "";
         final Bundle bundle = getIntent().getExtras();
         if (bundle.containsKey("legenda")){
             legenda = (String) bundle.get("legenda");
-            Toast.makeText(this, "legenda: "+legenda, Toast.LENGTH_SHORT).show();
-            text.setText(legenda);
+            med.setText(legenda);
 
         }
 

@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -25,6 +26,8 @@ import java.io.Serializable;
 
 import dao.PosologiaDAO;
 import model.Alarme;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
 
 public class AlarmService extends Service {
 
@@ -50,11 +53,13 @@ public class AlarmService extends Service {
         posologiaDAO = new PosologiaDAO(AlarmService.this);
 
         String legenda = intent.getStringExtra("legenda");
+        String quantidade = intent.getStringExtra("quantidade");
         int intervalo = intent.getIntExtra("intervalo", 0);
         int idPending = intent.getIntExtra("idPending",0);
 
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         alarmIntent.putExtra("legenda", legenda);
+        alarmIntent.putExtra("quantidade", quantidade);
 
         long repeticao;
 
@@ -74,6 +79,18 @@ public class AlarmService extends Service {
             r.stop();
         }
 
+        Intent sendIntent = new Intent(this,AlarmeAlert.class);
+
+        Bundle ex = new Bundle();
+
+        ex.putString("legenda",legenda);
+        sendIntent.putExtras(ex);
+
+        sendIntent.addFlags(sendIntent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(sendIntent);
+
+
         Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         r = RingtoneManager.getRingtone(getBaseContext(), notification);
         r.play();
@@ -83,22 +100,12 @@ public class AlarmService extends Service {
         vibrator. vibrate(3000);
 
         rodando=true;
-        Toast.makeText(this, "legenda:"+legenda, Toast.LENGTH_SHORT).show();
-        sendNotification(legenda, idPending);
+        //   sendNotification(legenda, idPending);
 
-//        Intent sendIntent = new Intent(this,AlarmeAlert.class);
-//
-//        Bundle ex = new Bundle();
-//
-//        ex.putString("legenda", legenda);
-//        sendIntent.putExtras(ex);
-//
-//        sendIntent.addFlags(sendIntent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        startActivity(sendIntent);
 
 
         return START_NOT_STICKY;
+
 
     }
 
@@ -121,6 +128,7 @@ public class AlarmService extends Service {
                 .setSmallIcon(R.drawable.ic_medication)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg)
+                .setContentInfo("teste de informação")
                 .setAutoCancel(true)
                 .setOngoing(true)
                 .addAction(R.drawable.ic_close_black_24dp, "Dispensar", contentIntent )
@@ -137,7 +145,7 @@ public class AlarmService extends Service {
     public void onDestroy() {
 
         r.stop();
-    //    super.onDestroy();
+        //    super.onDestroy();
 
 
     }

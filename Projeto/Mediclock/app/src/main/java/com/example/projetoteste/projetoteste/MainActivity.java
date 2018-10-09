@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         user = findViewById(R.id.email);
         password = findViewById(R.id.senha);
 
+
+
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

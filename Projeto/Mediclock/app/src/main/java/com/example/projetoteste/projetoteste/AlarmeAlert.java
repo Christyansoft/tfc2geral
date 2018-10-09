@@ -3,6 +3,7 @@ package com.example.projetoteste.projetoteste;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -15,13 +16,16 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import model.Alarme;
 
 public class AlarmeAlert extends AppCompatActivity {
 
     private boolean alarmActive;
     Button desliga;
-    TextView med, quant, obs, dur;
+    TextView med, quant, obs, horaAtual;
 
 
     @Override
@@ -32,14 +36,18 @@ public class AlarmeAlert extends AppCompatActivity {
         med = findViewById(R.id.txtMed);
         quant = findViewById(R.id.txtQuant);
         obs = findViewById(R.id.txtObs);
-        dur = findViewById(R.id.txtDur);
+        horaAtual = findViewById(R.id.txtHoraAtual);
 
-        String legenda = "";
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String horario = sdf.format(cal.getTime());
+
         final Bundle bundle = getIntent().getExtras();
-        if (bundle.containsKey("legenda")){
-            legenda = (String) bundle.get("legenda");
-            med.setText(legenda);
-
+        if (!bundle.isEmpty()){
+            med.setText((String) bundle.get("legenda"));
+            quant.setText((String) bundle.get("quantidade"));
+            obs.setText((String) bundle.get("obs"));
+            horaAtual.setText(horario);
         }
 
  //       final Window window = getWindow();

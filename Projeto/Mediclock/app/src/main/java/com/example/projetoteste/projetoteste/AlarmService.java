@@ -56,10 +56,12 @@ public class AlarmService extends Service {
         String quantidade = intent.getStringExtra("quantidade");
         int intervalo = intent.getIntExtra("intervalo", 0);
         int idPending = intent.getIntExtra("idPending",0);
+        String obs = intent.getStringExtra("obs");
 
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         alarmIntent.putExtra("legenda", legenda);
         alarmIntent.putExtra("quantidade", quantidade);
+        alarmIntent.putExtra("obs", obs);
 
         long repeticao;
 
@@ -84,6 +86,8 @@ public class AlarmService extends Service {
         Bundle ex = new Bundle();
 
         ex.putString("legenda",legenda);
+        ex.putString("quantidade", quantidade);
+        ex.putString("obs", obs);
         sendIntent.putExtras(ex);
 
         sendIntent.addFlags(sendIntent.FLAG_ACTIVITY_NEW_TASK);

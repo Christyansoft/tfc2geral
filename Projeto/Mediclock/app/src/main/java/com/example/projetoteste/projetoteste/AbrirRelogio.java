@@ -44,13 +44,11 @@ public class AbrirRelogio extends AppCompatActivity {
     Button salvar, desativar, abrirR;
 
     private TimePicker relogio;
-    String hora, minuto;
-
     Context context;
 
     ArrayList<Alarme> arrayList;
     TextView textView, medInfo;
-    EditText quant;
+    EditText quant, horario, obs;
     Spinner spIntervalo;
     String idTratamento;
 
@@ -61,8 +59,11 @@ public class AbrirRelogio extends AppCompatActivity {
 
         preencherS();
 
+        obs = findViewById(R.id.edtObs);
         abrirR = findViewById(R.id.btnAddH);
-
+        horario = findViewById(R.id.edtHorario);
+        horario.setEnabled(false);
+        horario.setTextColor(Color.BLACK);
         quant = findViewById(R.id.edtQtd);
         textView = findViewById(R.id.textView);
         medInfo = findViewById(R.id.medInfo);
@@ -135,7 +136,10 @@ public class AbrirRelogio extends AppCompatActivity {
                             minuto="0"+relogio.getMinute();
                         }
 
+                        String horarios = hora+":"+minuto;
 
+                        horario.setText(horarios);
+                        dialog.dismiss();
 
                     }
                 });
@@ -155,20 +159,18 @@ public class AbrirRelogio extends AppCompatActivity {
                     TextView errorText = (TextView) spIntervalo.getSelectedView();
                     errorText.setError("Informe o intervalo");
 
-                } else {
+                } else if(horario.getText().toString().equals("")) {
 
-                 //   final int hour = alarmTimePicker.getCurrentHour();
-                 //   final int minute = alarmTimePicker.getCurrentMinute();
-
-                //    hora = String.valueOf(hour);
-                 //   minuto = String.valueOf(minute);
+                    horario.setError("Informe o horario da medicação");
+                }
+                else{
 
                     Random gerador = new Random();
 
-                    Calendar now = Calendar.getInstance();
+                  //  Calendar now = Calendar.getInstance();
                     Calendar alarm = Calendar.getInstance();
-              //      alarm.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-              //      alarm.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                    alarm.set(Calendar.HOUR_OF_DAY, relogio.getCurrentHour());
+                    alarm.set(Calendar.MINUTE, relogio.getCurrentMinute());
                     alarm.set(Calendar.SECOND, 0);
                     alarm.set(Calendar.MILLISECOND, 0);
 
@@ -193,8 +195,8 @@ public class AbrirRelogio extends AppCompatActivity {
                     if(!alarm.after(Calendar.getInstance()))
                         alarm.roll(Calendar.DATE, true);
 
-                //    calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-                 //   calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                    calendar.set(Calendar.HOUR_OF_DAY, relogio.getCurrentHour());
+                    calendar.set(Calendar.MINUTE, relogio.getCurrentMinute());
 
                     int idPendingAnterior = 1;
 
@@ -205,8 +207,8 @@ public class AbrirRelogio extends AppCompatActivity {
 
                     Alarme alarme = new Alarme();
 
-               //     alarme.setHora(alarmTimePicker.getCurrentHour());
-               //     alarme.setMinuto(alarmTimePicker.getCurrentMinute());
+                    alarme.setHora(relogio.getCurrentHour());
+                    alarme.setMinuto(relogio.getCurrentMinute());
                     alarme.setSegundo(0);
                     alarme.setLegenda(med.getNomeMedicamento());
                     alarme.setIdPending(idPendingAnterior);
@@ -235,6 +237,7 @@ public class AbrirRelogio extends AppCompatActivity {
                         myIntent.putExtra("legenda", med.getNomeMedicamento());
                         myIntent.putExtra("idPending", idPendingAnterior);
                         myIntent.putExtra("quantidade", quant.getText().toString());
+                        myIntent.putExtra("obs", obs.getText().toString());
 
                         if (intervalo == 0) {
                             myIntent.putExtra("intervalo", intervalo);

@@ -31,6 +31,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         String quantidade = intent.getStringExtra("quantidade");
         int idPending = intent.getIntExtra("idPending",0);
         int intervalo = intent.getIntExtra("intervalo",0);
+        String obs = intent.getStringExtra("obs");
 
         Intent serviceIntent = new Intent(context, AlarmService.class);
 
@@ -38,6 +39,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         serviceIntent.putExtra("idPending", idPending);
         serviceIntent.putExtra("intervalo", intervalo);
         serviceIntent.putExtra("quantidade", quantidade);
+        serviceIntent.putExtra("obs", obs);
         context.startService(serviceIntent);
 
     }

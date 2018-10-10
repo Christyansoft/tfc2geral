@@ -32,14 +32,7 @@ import model.Medicamento;
 
 public class ClassePrincipal extends AppCompatActivity {
 
-    private ArrayList<Medicamento> lista = new ArrayList<Medicamento>();
-
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo("7896472502981");
-
     private FirebaseAuth firebaseAuth;
-
-    private ArrayList<Medicamento> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +42,26 @@ public class ClassePrincipal extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
         Button sair = findViewById(R.id.logoff);
+        Button btnMedicamento = findViewById(R.id.btnMedicamento);
+        Button btnLaboratorio = findViewById(R.id.btnLaboratorio);
+        Button btnPrincipio = findViewById(R.id.princiA);
+        Button btnClasse = findViewById(R.id.classeT);
+        Button btnMedico = findViewById(R.id.btnMedico);
+        Button btnCodigo = findViewById(R.id.btnCodBarras);
+        Button btnTra = findViewById(R.id.btnTrata);
+        Button imgPaciente = findViewById(R.id.imageView2);
+        Button btnMedLocal = findViewById(R.id.medicamento2);
+        Button btnDiag = findViewById(R.id.btnDiagnostico);
+
+        firebaseAuth=FirebaseAuth.getInstance();
+
+        if(!firebaseAuth.getCurrentUser().getEmail().equals("christyansoftperes@gmail.com")){
+            btnMedicamento.setVisibility(View.INVISIBLE);
+            btnLaboratorio.setVisibility(View.INVISIBLE);
+            btnPrincipio.setVisibility(View.INVISIBLE);
+            btnClasse.setVisibility(View.INVISIBLE);
+        }
+
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +72,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        Button btnMedicamento = findViewById(R.id.btnMedicamento);
 
         btnMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +81,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        Button btnLaboratorio = findViewById(R.id.btnLaboratorio);
-
         btnLaboratorio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,8 +88,6 @@ public class ClassePrincipal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button btnPrincipio = findViewById(R.id.princiA);
 
         btnPrincipio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,8 +97,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        Button btnClasse = findViewById(R.id.classeT);
-
         btnClasse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,8 +104,6 @@ public class ClassePrincipal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button btnMedico = findViewById(R.id.btnMedico);
 
         btnMedico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,8 +113,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        Button btnCodigo = findViewById(R.id.btnCodBarras);
-
         btnCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,8 +120,6 @@ public class ClassePrincipal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button btnTra = findViewById(R.id.btnTrata);
 
         btnTra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,8 +129,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        ImageButton imgPaciente = findViewById(R.id.imageView2);
-
         imgPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,8 +136,6 @@ public class ClassePrincipal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Button btnDiag = findViewById(R.id.btnDiagnostico);
 
         btnDiag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +145,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        Button btnMedLocal = findViewById(R.id.medicamento2);
-
         btnMedLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -158,12 +152,6 @@ public class ClassePrincipal extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    public void onClick(View view){
-
-        Toast.makeText(this, "clicado", Toast.LENGTH_SHORT).show();
-
     }
 
 

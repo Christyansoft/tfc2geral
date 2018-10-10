@@ -9,15 +9,17 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="116dp"
-        android:layout_height="92dp"
-        android:layout_marginBottom="388dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0.3"
+        app:layout_constraintHorizontal_bias="0.596"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logomedico" />
+        app:srcCompat="@drawable/tratamento256" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddTratamento"
@@ -37,14 +39,12 @@
     <ListView
         android:id="@+id/lvTratamento"
         android:layout_width="match_parent"
-        android:layout_height="268dp"
+        android:layout_height="440dp"
         android:layout_marginBottom="22dp"
-        android:layout_marginTop="23dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

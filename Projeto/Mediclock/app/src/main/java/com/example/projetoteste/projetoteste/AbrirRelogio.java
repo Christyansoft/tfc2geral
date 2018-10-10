@@ -87,6 +87,10 @@ public class AbrirRelogio extends AppCompatActivity {
         idTratamento = i2.getStringExtra("idTratamento");
 
         if(alarme2!=null){
+
+            obs.setVisibility(View.INVISIBLE);
+            abrirR.setVisibility(View.INVISIBLE);
+            horario.setVisibility(View.INVISIBLE);
             quant.setVisibility(View.INVISIBLE);
             salvar.setVisibility(View.INVISIBLE);
             textView.setVisibility(View.VISIBLE);
@@ -122,7 +126,6 @@ public class AbrirRelogio extends AppCompatActivity {
                     public void onClick(View view) {
                         String hora = String.valueOf(relogio.getHour());
                         String minuto = String.valueOf(relogio.getMinute());
-
 
                         if(relogio.getHour()==0){
                             hora +=0;
@@ -273,7 +276,7 @@ public class AbrirRelogio extends AppCompatActivity {
                     alarmManager.cancel(pendingIntent);
                     retornoDB = posologiaDAO.deletarAlarme(alarme2);
                     finish();
-                    Toast.makeText(AbrirRelogio.this, "alarme cancelado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AbrirRelogio.this, "alarme desativado", Toast.LENGTH_SHORT).show();
 
             }
         });

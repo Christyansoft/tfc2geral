@@ -82,6 +82,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/diagnosis" />
+        app:srcCompat="@drawable/diagnostico128" />
 
 </android.support.constraint.ConstraintLayout>

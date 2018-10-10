@@ -14,126 +14,254 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
         android:text="Sair"
+        android:drawableStart="@drawable/ic_exit_to_app_black_24dp"
+        android:background="@drawable/edit_text_border"
+        android:backgroundTint="@color/colorPrimary"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:textColor="#FFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnMedicamento"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="31dp"
-        android:layout_marginStart="27dp"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Medicamentos"
-        app:layout_constraintEnd_toStartOf="@+id/btnLaboratorio"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/medicamento64"
+        android:paddingLeft="12dp"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnLaboratorio"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="34dp"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
         android:layout_marginTop="16dp"
-        android:text="Laboratorios"
-        app:layout_constraintBottom_toBottomOf="@+id/btnMedicamento"
+        android:layout_marginEnd="34dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/laboratorio64"
+        android:paddingLeft="12dp"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toEndOf="@+id/btnMedicamento"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/princiA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="18dp"
-        android:text="Principio Ativo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMedicamento" />
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/principio642"
+        android:paddingLeft="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnMedico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="11dp"
-        android:text="Medicos"
-        app:layout_constraintBottom_toTopOf="@+id/btnCodBarras"
-        app:layout_constraintStart_toStartOf="@+id/btnCodBarras" />
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/medico64"
+        android:paddingLeft="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <Button
         android:id="@+id/classeT"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Classe Terap."
-        app:layout_constraintStart_toStartOf="@+id/princiA"
-        app:layout_constraintTop_toBottomOf="@+id/princiA" />
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/classe32"
+        android:paddingLeft="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/btnCodBarras"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginStart="19dp"
-        android:text="Codigo de barras."
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/barcode64"
+        android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/classeT"
-        app:layout_constraintTop_toTopOf="@+id/classeT" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
         android:id="@+id/btnTrata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="18dp"
-        android:background="@color/common_google_signin_btn_text_dark_default"
-        android:drawableTop="@drawable/prescricao"
-        android:text="Tratamento"
-        android:textSize="13dp"
-        app:layout_constraintEnd_toEndOf="@+id/btnCodBarras"
-        app:layout_constraintTop_toBottomOf="@+id/btnCodBarras" />
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/tratamento64"
+        android:paddingLeft="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-    <ImageButton
+    <Button
         android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="94dp"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="17dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginStart="25dp"
+        android:layout_marginBottom="188dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/paciente64"
+        android:paddingLeft="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnMedicamento"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="@+id/classeT"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/paciente" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnDiagnostico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="115dp"
-        android:layout_marginEnd="21dp"
-        android:text="Diagnostico"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginEnd="260dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/diagnostico64"
+        android:paddingLeft="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/medicamento2"
+        android:layout_width="84dp"
+        android:layout_height="87dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="192dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableStart="@drawable/medicamento64"
+        android:paddingLeft="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Medicamento2"
-        android:background="#FFFF"
-        android:drawableTop="@drawable/medicamento2"
-        app:layout_constraintBottom_toTopOf="@+id/btnDiagnostico"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.882"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Medicamento"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTrata"
-        app:layout_constraintVertical_bias="0.556" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMedicamento" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="148dp"
+        android:text="Laboratorio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLaboratorio" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="19dp"
+        android:text="Principio Ativo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/princiA" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="4dp"
+        android:text="Classe\nTerapeutica"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/classeT" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="172dp"
+        android:text="Medico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMedico" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:text="Busca\npor Codigo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCodBarras" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="Paciente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="148dp"
+        android:text="Tratamento"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTrata" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="14dp"
+        android:text="Medicamento\nLocal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/medicamento2" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:text="Diagnostico"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDiagnostico" />
 
 
 </android.support.constraint.ConstraintLayout>

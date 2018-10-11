@@ -35,10 +35,6 @@ public class AlarmService extends Service {
     private Ringtone r;
     PosologiaDAO posologiaDAO;
 
-    public void setRodando(boolean rodando){
-        this.rodando=rodando;
-    }
-
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -65,7 +61,7 @@ public class AlarmService extends Service {
 
         long repeticao;
 
-        if(intervalo==0) {
+        if(intervalo==25) {
             //  long scTime = 60*1000;//mins
             repeticao = 60*2000;
         }

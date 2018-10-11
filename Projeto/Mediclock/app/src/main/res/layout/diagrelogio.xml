@@ -28,7 +28,7 @@
         android:background="@drawable/edit_text_border"
         android:text="Ok"
         android:textColor="#FFFF"
-        android:backgroundTint="#f78818"
+        android:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="@+id/relogio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.97"

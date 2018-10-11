@@ -1,5 +1,7 @@
 package com.example.projetoteste.projetoteste;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -39,8 +41,8 @@ public class CadastroPaciente extends AppCompatActivity {
     private Spinner spSexo;
     List<String> list;
     EditText edtNome, edtidade;
-    char sexo;
     Paciente paciente2;
+    ArrayList<Tratamento> arrayTrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class CadastroPaciente extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_paciente);
 
         preencherS();
+        PrencheArray pr = new PrencheArray();
+        arrayTrat = pr.preencheTrat();
 
         final Button salvar = findViewById(R.id.btnSalvar);
         Button apagar = findViewById(R.id.btnApagar);
@@ -103,7 +107,7 @@ public class CadastroPaciente extends AppCompatActivity {
                 }
                 else{
                     pac.setNomePaciente(edtNome.getText().toString());
-                 
+
                 }
 
                 if(edtidade.getText().toString().equals("")){
@@ -127,7 +131,6 @@ public class CadastroPaciente extends AppCompatActivity {
                 pac.setUsuarioPaciente(usuario);
 
                 if(validar()) {
-
 
 
                     if(salvar.getText().toString().equals("Salvar")) {
@@ -171,20 +174,87 @@ public class CadastroPaciente extends AppCompatActivity {
         apagar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean result = false;
+
+                if(!arrayTrat.isEmpty()) {
+                    for (Tratamento t : arrayTrat) {
+
+                        if(t.getPaciente().getIdPaciente().equals(paciente2.getIdPaciente())){
+                            result = true;
+                            break;
+                        }
+
+                    }
+                }
+
+                if(result){
+                    showDialogo();
+                }
+                else{
+                    confirmaDelete();
+                }
+
+            }
+        });
+    }
+
+    public void showDialogo(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Informação de paciente");
+        //define a mensagem
+
+        builder.setMessage("Não é possivel apagar este paciente, pois o mesmo está vinculado a algum tratamento. Caso deseje" +
+                " realmente apagar, delete o tratamento antes");
+        //define um botão como positivo
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        builder.create().show();
+
+    }
+
+    public void confirmaDelete(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Confirmação");
+        //define a mensagem
+
+        builder.setMessage("Confirma a exclusão deste paciente?");
+        //define um botão como positivo
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
                 pacienteRef.child(paciente2.getIdPaciente()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(CadastroPaciente.this, "Pacinte apagado", Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CadastroPaciente.this, "Paciente apagado", Toast.LENGTH_SHORT).show();
                             finish();
-                        }
-                        else{
+                        } else {
                             Toast.makeText(CadastroPaciente.this, "Erro ao apagar paciente", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+
             }
         });
+
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.create().show();
+
     }
 
     public void updatePaciente(final Paciente pac){

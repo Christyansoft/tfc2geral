@@ -1,7 +1,9 @@
 package com.example.projetoteste.projetoteste;
 
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationManagerCompat;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,10 +39,14 @@ public class CadastroDiagnostico extends AppCompatActivity {
 
     EditText edtDesc, edtCodCid;
     Diagnostico diagnostico2;
+    ArrayList<Tratamento> arrayTrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PrencheArray pr = new PrencheArray();
+        arrayTrat = pr.preencheTrat();
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -90,7 +97,7 @@ public class CadastroDiagnostico extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CadastroDiagnostico.this, "Diagnostico cadastrado", Toast.LENGTH_SHORT).show();
-                                    limpar();
+                                    finish();
                                 } else {
                                     Toast.makeText(CadastroDiagnostico.this, "Erro ao cadastrar diagnostico", Toast.LENGTH_SHORT).show();
                                 }
@@ -122,7 +129,96 @@ public class CadastroDiagnostico extends AppCompatActivity {
             }
         });
 
+        apagar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                boolean result = false;
+
+                if(!arrayTrat.isEmpty()) {
+                    for (Tratamento t : arrayTrat) {
+
+                            if(t.getDiagnostico().getIdDiagnostico().equals(diagnostico2.getIdDiagnostico())){
+                                result = true;
+                                break;
+                            }
+
+                    }
+                }
+
+                if(result){
+                    showDialogo();
+                }
+                else{
+                    confirmaDelete();
+                }
+
+            }
+        });
+
+
     }
+
+    public void showDialogo(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Informação de diagnóstico");
+        //define a mensagem
+
+        builder.setMessage("Não é possivel apagar este diagnóstico, pois o mesmo está vinculado a algum tratamento. Caso deseje" +
+                " realmente apagar, delete o tratamento antes");
+        //define um botão como positivo
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        builder.create().show();
+
+    }
+
+    public void confirmaDelete(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Confirmação");
+        //define a mensagem
+
+        builder.setMessage("Confirma a exclusão deste diagnóstico?");
+        //define um botão como positivo
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
+                diagnosticoRef.child(diagnostico2.getIdDiagnostico()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(CadastroDiagnostico.this, "Diagnóstico apagado", Toast.LENGTH_SHORT).show();
+                            limpar();
+                            finish();
+                        } else {
+                            Toast.makeText(CadastroDiagnostico.this, "Erro ao apagar diagnostico", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+            }
+        });
+
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        builder.create().show();
+
+    }
+
 
     private void updateDiagnostico(final Diagnostico diag) {
 

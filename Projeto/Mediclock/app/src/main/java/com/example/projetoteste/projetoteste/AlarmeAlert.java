@@ -43,7 +43,7 @@ public class AlarmeAlert extends AppCompatActivity {
         String horario = sdf.format(cal.getTime());
 
         final Bundle bundle = getIntent().getExtras();
-        if (!bundle.isEmpty()){
+        if (bundle.containsKey("legenda")){
             med.setText((String) bundle.get("legenda"));
             quant.setText((String) bundle.get("quantidade"));
             obs.setText((String) bundle.get("obs"));

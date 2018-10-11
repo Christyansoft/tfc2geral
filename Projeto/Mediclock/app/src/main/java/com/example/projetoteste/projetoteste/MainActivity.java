@@ -74,8 +74,12 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if(firebaseAuth.getCurrentUser() != null) {
+        if(firebaseAuth.getCurrentUser() != null && firebaseAuth.getCurrentUser().getEmail().equals("christyansoftperes@gmail.com")) {
             Intent intent = new Intent(MainActivity.this, ClassePrincipal.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(MainActivity.this, ClassePrincipalComun.class);
             startActivity(intent);
         }
 
@@ -103,10 +107,21 @@ public class MainActivity extends AppCompatActivity {
 
                                         if(firebaseAuth.getCurrentUser().isEmailVerified()) {
 
-                                            Toast.makeText(MainActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(MainActivity.this, ClassePrincipal.class);
-                                            startActivity(intent);
-                                            finish();
+                                            if(firebaseAuth.getCurrentUser().getEmail().equals("christyansoftperes@gmail.com")) {
+
+                                                Toast.makeText(MainActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(MainActivity.this, ClassePrincipal.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+                                            else{
+                                                Toast.makeText(MainActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(MainActivity.this, ClassePrincipalComun.class);
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+
 
                                         }else{
                                             Toast.makeText(MainActivity.this, "Verifique seu e-mail antes de logar", Toast.LENGTH_SHORT).show();

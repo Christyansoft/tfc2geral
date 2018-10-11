@@ -334,7 +334,6 @@ public class CadastroTratamento extends AppCompatActivity {
 
                 posologiaDAO = new PosologiaDAO(CadastroTratamento.this);
 
-
                 boolean existe = false;
 
                 for(Medicamento med: arrayMedicamento){

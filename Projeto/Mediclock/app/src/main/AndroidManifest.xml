@@ -24,7 +24,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateVisible|adjustResize">
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,60 +36,50 @@
             android:name=".AlarmService"
             android:enabled="true" />
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".ClassePrincipal" />
-
         <activity
             android:name=".ListaMedicamentos"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity
             android:name=".ListaLaboratorios"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity android:name=".CadastroLaboratorio" />
         <activity android:name=".CadastroMedicamento" />
-
         <activity
             android:name=".ListaPrincipioAtivo"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity
             android:name=".ListaClasseTerapeutica"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity
             android:name=".ListaMedicos"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity android:name="model.CodigoBarras" />
         <activity android:name=".CadastroTratamento" />
-
         <activity
             android:name=".ListaMedicamentosTrat"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity android:name=".CadastroPaciente" />
         <activity android:name=".CadastroDiagnostico" />
-
         <activity
             android:name=".ListaPacientes"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity android:name=".CadastroMedico" />
         <activity android:name=".AbrirRelogio" />
-
         <activity
             android:name=".ListaDiagnosticos"
             android:windowSoftInputMode="adjustNothing" />
-
         <activity android:name=".ListaTratamento" />
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".AlarmeAlert"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".ResultadoBarras" />
 
         <meta-data
@@ -104,12 +93,11 @@
         <activity android:name=".ActionNotificacao" />
         <activity android:name=".CadastroPrincipioAtivo" />
         <activity android:name=".CadastroClasseTerapeutica" />
-
         <activity
             android:name=".TestandoActivity"
             android:label="@string/title_activity_testando"
-            android:theme="@style/AppTheme"></activity>
-
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ClassePrincipalComun"></activity>
     </application>
 
 </manifest>

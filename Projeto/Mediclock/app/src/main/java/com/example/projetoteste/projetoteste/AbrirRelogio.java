@@ -57,8 +57,8 @@ public class AbrirRelogio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abrir_relogio);
 
+        spIntervalo = findViewById(R.id.spinner);
         preencherS();
-
         obs = findViewById(R.id.edtObs);
         abrirR = findViewById(R.id.btnAddH);
         horario = findViewById(R.id.edtHorario);
@@ -218,7 +218,7 @@ public class AbrirRelogio extends AppCompatActivity {
 
                     int intervalo = selecionaIntervalo();
 
-                    if (intervalo != 0) {
+                    if (intervalo != 25) {
                         alarme.setRepeating(somar(calendar, intervalo));
                     } else {
                         alarme.setRepeating("2 em 2 minutos");
@@ -242,7 +242,7 @@ public class AbrirRelogio extends AppCompatActivity {
                         myIntent.putExtra("quantidade", quant.getText().toString());
                         myIntent.putExtra("obs", obs.getText().toString());
 
-                        if (intervalo == 0) {
+                        if (intervalo == 25) {
                             myIntent.putExtra("intervalo", intervalo);
                         } else {
                             myIntent.putExtra("intervalo", 24 / intervalo);
@@ -315,6 +315,9 @@ public class AbrirRelogio extends AppCompatActivity {
 
         switch (id){
 
+            case 1:
+                id2= 25;
+                break;
             case 2:
                 id2= 24;
                 break;
@@ -395,8 +398,6 @@ public class AbrirRelogio extends AppCompatActivity {
     }
 
     public void preencherS(){
-
-        spIntervalo = findViewById(R.id.spinner);
 
         list = new ArrayList<String>();
         list.add("Selecione o intervalo");

@@ -37,7 +37,6 @@ public class ListaMedicamentos extends AppCompatActivity {
     FloatingActionButton btnAddMed;
     ProgressDialog progress;
 
-    MedicamentoLocalDAO medDao;
     Context context;
 
     ArrayList<Medicamento> arrayMed;

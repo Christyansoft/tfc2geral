@@ -7,18 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".ListaMedicos">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:titleTextColor="#FFFF"
+        />
+
     <ImageView
         android:id="@+id/logoDoctor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:adjustViewBounds="true"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.625"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/doctor" />
+        app:srcCompat="@drawable/medico256" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddMedico"
@@ -38,15 +58,13 @@
     <ListView
         android:id="@+id/lvMedicos"
         android:layout_width="match_parent"
-        android:layout_height="268dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddPaciente"
+        android:layout_height="437dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddMedico"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoDoctor"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
 
 </android.support.constraint.ConstraintLayout>

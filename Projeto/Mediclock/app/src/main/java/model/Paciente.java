@@ -22,6 +22,10 @@ public class Paciente implements Searchable, Serializable{
         this.idPaciente = idPaciente;
     }
 
+    @Override
+    public String toString(){
+        return this.getNomePaciente();
+    }
 
     public String getIdPaciente() {
         return idPaciente;

@@ -1,41 +1,57 @@
 package com.example.projetoteste.projetoteste;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.firebase.ui.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import model.Diagnostico;
+import model.Medico;
+import model.Paciente;
 
 public class ListaDiagnosticos extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     FloatingActionButton addDiag;
     ListView minhaLista;
+    String usuario;
+    ArrayList<Diagnostico> arrayDiag;
+    ArrayAdapter<Diagnostico> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_diagnosticos);
 
+        minhaLista = findViewById(R.id.lvDiagnosticos);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Diagnostico");
+        setSupportActionBar(toolbar);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        String usuario = firebaseAuth.getCurrentUser().getEmail();
-
-        Firebase.setAndroidContext(this);
-        com.firebase.client.Query firebaseObj = new Firebase("https://projeto-teste-32601.firebaseio.com/diagnostico").orderByChild("usuarioDiagnostico").equalTo(usuario);
+        usuario = firebaseAuth.getCurrentUser().getEmail();
 
         addDiag = findViewById(R.id.btnAddDiagnostico);
 
@@ -48,18 +64,6 @@ public class ListaDiagnosticos extends AppCompatActivity {
             }
         });
 
-        minhaLista = findViewById(R.id.lvDiagnosticos);
-
-        final FirebaseListAdapter<Diagnostico> adapter = new FirebaseListAdapter<Diagnostico>(this, Diagnostico.class, android.R.layout.simple_list_item_1, firebaseObj) {
-
-            @Override
-            protected void populateView(View view, final Diagnostico diagnostico, int i) {
-
-                TextView textView = view.findViewById(android.R.id.text1);
-                textView.setText(diagnostico.getNomeDiagnostico());
-            }
-        };
-        minhaLista.setAdapter(adapter);
 
         minhaLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,6 +76,81 @@ public class ListaDiagnosticos extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem mSearch = menu.findItem(R.id.action);
+
+        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setQueryHint("Pesquise");
+        mSearchView.setBackgroundColor(Color.WHITE);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    public void preencheLista(){
+
+        Query pacienteRef = databaseReference.child("diagnostico").orderByChild("usuarioDiagnostico").equalTo(usuario);
+
+        arrayDiag = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(ListaDiagnosticos.this,
+                android.R.layout.simple_list_item_1, arrayDiag);
+        minhaLista.setAdapter(mAdapter);
+
+        pacienteRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Diagnostico di = dataSnapshot.getValue(Diagnostico.class);
+                arrayDiag.add(di);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        preencheLista();
+
+    }
+
 
 
 }

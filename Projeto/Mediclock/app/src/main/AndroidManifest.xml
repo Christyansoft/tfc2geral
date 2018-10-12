@@ -75,7 +75,8 @@
         <activity
             android:name=".ListaDiagnosticos"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".ListaTratamento" />
+        <activity android:name=".ListaTratamento"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".AlarmeAlert"
@@ -89,7 +90,8 @@
 
         <activity android:name=".Testando" />
         <activity android:name=".CadastroMedicamentoLocal" />
-        <activity android:name=".ListaMedicamentosLocal" />
+        <activity android:name=".ListaMedicamentosLocal"
+            android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ActionNotificacao" />
         <activity android:name=".CadastroPrincipioAtivo" />
         <activity android:name=".CadastroClasseTerapeutica" />

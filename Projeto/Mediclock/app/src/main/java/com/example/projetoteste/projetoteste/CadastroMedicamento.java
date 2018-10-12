@@ -270,11 +270,12 @@ public class CadastroMedicamento extends AppCompatActivity{
                 if(!arrayTrat.isEmpty()){
 
                     for(int j=0; j<arrayTrat.size();j++){
-                        if(arrayTrat.get(j).getArrayMedicamento().get(j).getIdMedicamento().equals(med2.getIdMedicamento())){
-                            resultado = true;
-                            break;
+                        for(int k=0; k<arrayTrat.get(j).getArrayMedicamento().size();k++) {
+                            if (arrayTrat.get(j).getArrayMedicamento().get(k).getIdMedicamento().equals(med2.getIdMedicamento())) {
+                                resultado = true;
+                                break;
+                            }
                         }
-
                     }
 
                 }
@@ -292,7 +293,6 @@ public class CadastroMedicamento extends AppCompatActivity{
 
     }
 
-    private AlertDialog alerta;
 
     private void showDialogo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -311,9 +311,8 @@ public class CadastroMedicamento extends AppCompatActivity{
         });
 
         //cria o AlertDialog
-        alerta = builder.create();
+        builder.create().show();
         //Exibe
-        alerta.show();
 
     }
 
@@ -355,12 +354,9 @@ public class CadastroMedicamento extends AppCompatActivity{
         });
 
         //cria o AlertDialog
-        alerta = builder.create();
-        //Exibe
-        alerta.show();
+        builder.create().show();
 
     }
-
 
     private void limpar() {
         edtDesc.setText("");

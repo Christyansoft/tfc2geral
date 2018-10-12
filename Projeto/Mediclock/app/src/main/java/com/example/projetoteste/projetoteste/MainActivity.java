@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private DatabaseReference geral = databaseReference.child("GERAL/MEDICAMENTO");
     private DatabaseReference classeRefer = databaseReference.child("classeTerapeutica");
-    private DatabaseReference medicamentoRef = databaseReference.child("geral/medicamento");
+    private DatabaseReference medicamentoRef = databaseReference.child("geral");
     private DatabaseReference principioA = databaseReference.child("principioAtivo");
     private DatabaseReference classeRef = databaseReference.child("classe2");
-    private DatabaseReference lab = databaseReference.child("laboratorio");
+    private DatabaseReference lab = databaseReference.child("geral2");
 
     private EditText user, password;
 

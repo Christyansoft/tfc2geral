@@ -60,6 +60,7 @@ public class CadastroTratamento extends AppCompatActivity {
     Tratamento trat2 = null;
     Tratamento trat = new Tratamento();
     PosologiaDAO posologiaDAO;
+    String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class CadastroTratamento extends AppCompatActivity {
         apagar.setVisibility(View.INVISIBLE);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        final String usuario = firebaseAuth.getCurrentUser().getEmail();
+        usuario = firebaseAuth.getCurrentUser().getEmail();
 
         Intent i = getIntent();
         trat2 = (Tratamento) i.getSerializableExtra("tratamento-enviado");
@@ -151,22 +152,29 @@ public class CadastroTratamento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o médico",
-                        "", null, arrayMedicos, new SearchResultListener() {
-                    @Override
-                    public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
-                        Medico medico = (Medico) o;
-                        edtmedico.setText(medico.getNomeMedico());
-                        Medico me = new Medico();
+                if (!arrayMedicos.isEmpty()) {
 
-                        me.setIdMedico(medico.getIdMedico());
-                        me.setNomeMedico(medico.getNomeMedico());
-                        trat.setMedico(me);
+                    new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o médico",
+                            "", null, arrayMedicos, new SearchResultListener() {
+                        @Override
+                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
+                            Medico medico = (Medico) o;
+                            edtmedico.setText(medico.getNomeMedico());
+                            Medico me = new Medico();
 
-                        baseSearchDialogCompat.dismiss();
-                    }
-                }).show();
+                            me.setIdMedico(medico.getIdMedico());
+                            me.setNomeMedico(medico.getNomeMedico());
+                            trat.setMedico(me);
+
+                            baseSearchDialogCompat.dismiss();
+                        }
+                    }).show();
+                }
+                else{
+                    showDialogo3("medico");
+                }
             }
+
         });
 
 
@@ -174,19 +182,25 @@ public class CadastroTratamento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o paciente",
-                        "", null, arrayPacientes, new SearchResultListener() {
-                    @Override
-                    public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
-                        Paciente paciente = (Paciente) o;
-                        edtpaciente.setText(paciente.getNomePaciente());
-                        Paciente pa = new Paciente();
-                        pa.setIdPaciente(paciente.getIdPaciente());
-                        pa.setNomePaciente(paciente.getNomePaciente());
-                        trat.setPaciente(pa);
-                        baseSearchDialogCompat.dismiss();
-                    }
-                }).show();
+                if (!arrayPacientes.isEmpty()) {
+
+                    new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o paciente",
+                            "", null, arrayPacientes, new SearchResultListener() {
+                        @Override
+                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
+                            Paciente paciente = (Paciente) o;
+                            edtpaciente.setText(paciente.getNomePaciente());
+                            Paciente pa = new Paciente();
+                            pa.setIdPaciente(paciente.getIdPaciente());
+                            pa.setNomePaciente(paciente.getNomePaciente());
+                            trat.setPaciente(pa);
+                            baseSearchDialogCompat.dismiss();
+                        }
+                    }).show();
+                }
+                else{
+                    showDialogo3("paciente");
+                }
             }
         });
 
@@ -194,19 +208,25 @@ public class CadastroTratamento extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o diagnostico",
-                        "", null, arrayDiag, new SearchResultListener() {
-                    @Override
-                    public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
-                        Diagnostico diag = (Diagnostico) o;
-                        edtdiagnostico.setText(diag.getNomeDiagnostico());
-                        Diagnostico d = new Diagnostico();
-                        d.setIdDiagnostico(diag.getIdDiagnostico());
-                        d.setNomeDiagnostico(diag.getNomeDiagnostico());
-                        trat.setDiagnostico(d);
-                        baseSearchDialogCompat.dismiss();
-                    }
-                }).show();
+                if (!arrayDiag.isEmpty()) {
+
+                    new SimpleSearchDialogCompat(CadastroTratamento.this, "Pesquise o diagnostico",
+                            "", null, arrayDiag, new SearchResultListener() {
+                        @Override
+                        public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Object o, int i) {
+                            Diagnostico diag = (Diagnostico) o;
+                            edtdiagnostico.setText(diag.getNomeDiagnostico());
+                            Diagnostico d = new Diagnostico();
+                            d.setIdDiagnostico(diag.getIdDiagnostico());
+                            d.setNomeDiagnostico(diag.getNomeDiagnostico());
+                            trat.setDiagnostico(d);
+                            baseSearchDialogCompat.dismiss();
+                        }
+                    }).show();
+                }
+                else{
+                    showDialogo3("diagnostico");
+                }
             }
         });
 
@@ -307,6 +327,7 @@ public class CadastroTratamento extends AppCompatActivity {
 
                         trat3.setArrayMedicamento(arrayMedicamento);
                         trat3.setIdTratamento(trat2.getIdTratamento());
+                        trat3.setUsuarioTratamento(usuario);
 
                         tratamentoRef.child(trat2.getIdTratamento()).setValue(trat3).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -407,6 +428,76 @@ public class CadastroTratamento extends AppCompatActivity {
         alerta.show();
     }
 
+    public void showDialogo3(String item){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Cadastro");
+        //define a mensagem
+
+        if(item.equals("diagnostico")){
+            builder.setMessage("Você ainda não possui diagnostico cadastrado, deseja criar agora?");
+
+            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                    Intent intent = new Intent(CadastroTratamento.this, CadastroDiagnostico.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+        }else if(item.equals("paciente")){
+            builder.setMessage("Você ainda não possui paciente cadastrado, deseja criar agora?");
+
+            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                    Intent intent = new Intent(CadastroTratamento.this, CadastroPaciente.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+        }else if(item.equals("medico")){
+            builder.setMessage("Você ainda não possui medico cadastrado, deseja criar agora?");
+
+            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface arg0, int arg1) {
+
+                    Intent intent = new Intent(CadastroTratamento.this, CadastroMedico.class);
+                    startActivity(intent);
+
+                }
+            });
+
+            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+
+        }
+
+        builder.create().show();
+
+
+    }
+
     public void showDialogo(String item){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
@@ -429,6 +520,7 @@ public class CadastroTratamento extends AppCompatActivity {
 
             }
         });
+
 
         //cria o AlertDialog
         alerta = builder.create();

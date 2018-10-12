@@ -43,7 +43,7 @@ public class ListaMedicamentos extends AppCompatActivity {
     ArrayAdapter<Medicamento> mAdapter;
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference medicamentoRef = databaseReference.child("geral").child("medicamento");
+    DatabaseReference medicamentoRef = databaseReference.child("medicamento");
 
     Toolbar toolbar;
     ListView minhalista;
@@ -97,6 +97,7 @@ public class ListaMedicamentos extends AppCompatActivity {
         SearchView mSearchView = (SearchView) mSearch.getActionView();
         mSearchView.setQueryHint("Pesquise");
         mSearchView.setBackgroundColor(Color.WHITE);
+
 
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

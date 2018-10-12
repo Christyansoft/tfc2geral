@@ -14,6 +14,7 @@ public class Medicamento implements Serializable {
     private String idPrincipioA;
     private String nomeClasseTerapeutica;
     private String idClasseT;
+    private String usuarioMedicamento;
 
     @Override
     public String toString() {
@@ -104,5 +105,11 @@ public class Medicamento implements Serializable {
         this.idClasseT = idClasseT;
     }
 
+    public String getUsuarioMedicamento() {
+        return usuarioMedicamento;
+    }
 
+    public void setUsuarioMedicamento(String usuarioMedicamento) {
+        this.usuarioMedicamento = usuarioMedicamento;
+    }
 }

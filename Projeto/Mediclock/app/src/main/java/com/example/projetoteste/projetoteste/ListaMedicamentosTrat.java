@@ -21,6 +21,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,12 +47,15 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
     ArrayAdapter<Medicamento> mAdapter;
     Toolbar toolbar;
     ListView minhalista;
-    TextView vazio;
+    String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_medicamentos_trat);
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        usuario = firebaseAuth.getCurrentUser().getEmail();
 
 
         minhalista = (ListView) findViewById(R.id.listaMedTrat);
@@ -67,7 +71,8 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
         });
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Selecione o medicamento");
         setSupportActionBar(toolbar);
 
         minhalista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -117,7 +122,7 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
     public void preencheLista(){
         arrayList = new ArrayList<Medicamento>();
         MedicamentoLocalDAO medDao = new MedicamentoLocalDAO(ListaMedicamentosTrat.this);
-        arrayList = medDao.selectAllMed();
+        arrayList = medDao.ListaMedicamentoFiltrado(usuario);
         medDao.close();
 
         mAdapter = new ArrayAdapter<Medicamento>(ListaMedicamentosTrat.this,

@@ -12,19 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" />
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="#FFFF"
+        />
 
     <ListView
         android:id="@+id/listaMedTrat"
         android:layout_width="match_parent"
-        android:layout_height="524dp"
+        android:layout_height="435dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddMedicamentoLocal"
@@ -42,20 +43,21 @@
         app:titleTextColor="#FFFF"
         app:srcCompat="@drawable/ic_add_black_24dp" />
 
-
-    <TextView
-        android:id="@+id/txtTitulo"
+    <ImageView
+        android:id="@+id/logoDiagnostico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="27dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="68dp"
-        android:text="Selecione o Medicamento"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/listaMedTrat"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:alpha="0.3"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/medicamento256" />
+
 
 </android.support.constraint.ConstraintLayout>

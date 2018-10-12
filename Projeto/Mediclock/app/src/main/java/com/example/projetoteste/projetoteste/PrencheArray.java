@@ -36,6 +36,7 @@ public class PrencheArray {
     DatabaseReference princRef = databaseReference.child("principioAtivo");
     DatabaseReference classRef = databaseReference.child("classeTerapeutica");
     DatabaseReference tratRef = databaseReference.child("tratamento");
+    Query tratUsu = databaseReference.child("tratamento").orderByChild("usuarioTratamento").equalTo(usuario);
 
     Medicamento medicamento = null;
 
@@ -304,6 +305,44 @@ public class PrencheArray {
         final ArrayList<Tratamento> t2 = new ArrayList<>();
 
         tratRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Tratamento t = dataSnapshot.getValue(Tratamento.class);
+                t2.add(t);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        return t2;
+
+    }
+
+    public ArrayList<Tratamento> preencheTratUsu() {
+
+        final ArrayList<Tratamento> t2 = new ArrayList<>();
+
+        tratUsu.addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

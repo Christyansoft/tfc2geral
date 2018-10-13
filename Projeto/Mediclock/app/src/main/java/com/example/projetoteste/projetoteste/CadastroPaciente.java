@@ -40,7 +40,7 @@ public class CadastroPaciente extends AppCompatActivity {
 
     private Spinner spSexo;
     List<String> list;
-    EditText edtNome, edtidade;
+    EditText edtNome, edtidade, edtObser;
     Paciente paciente2;
     ArrayList<Tratamento> arrayTrat;
 
@@ -59,6 +59,7 @@ public class CadastroPaciente extends AppCompatActivity {
         apagar.setVisibility(View.INVISIBLE);
         edtNome = findViewById(R.id.edtNome);
         edtidade = findViewById(R.id.edtIdade);
+        edtObser = findViewById(R.id.edtObser);
 
         Intent i = getIntent();
         paciente2 = (Paciente) i.getSerializableExtra("paciente-enviado");
@@ -88,6 +89,7 @@ public class CadastroPaciente extends AppCompatActivity {
             edtNome.setText(paciente2.getNomePaciente());
             edtidade.setText(paciente2.getIdade());
             spSexo.setSelection(posicao);
+            edtObser.setText(paciente2.getObservacao());
 
         }
 
@@ -128,6 +130,7 @@ public class CadastroPaciente extends AppCompatActivity {
                     }
                 }
 
+                pac.setObservacao(edtObser.getText().toString());
                 pac.setUsuarioPaciente(usuario);
 
                 if(validar()) {

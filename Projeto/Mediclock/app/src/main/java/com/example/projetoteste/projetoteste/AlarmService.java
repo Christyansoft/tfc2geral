@@ -5,35 +5,25 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
-
-import java.io.Serializable;
 
 import dao.PosologiaDAO;
-import model.Alarme;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_DOCUMENT;
 
 public class AlarmService extends Service {
 
-    public boolean rodando;
+    private boolean rodando;
     private Ringtone r;
-    PosologiaDAO posologiaDAO;
+    private PosologiaDAO posologiaDAO;
 
     @Nullable
     @Override

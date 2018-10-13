@@ -1,9 +1,8 @@
 package com.example.projetoteste.projetoteste;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.MaskFilter;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,16 +28,19 @@ import model.Medicamento;
 
 public class CadastroLaboratorio extends AppCompatActivity {
 
-   private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-   private DatabaseReference laboratorioRef = databaseReference.child("laboratorio");
-   private DatabaseReference medicamentoRef = databaseReference.child("medicamento");
+   private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+   private final DatabaseReference laboratorioRef = databaseReference.child("laboratorio");
+   private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
 
-   EditText edtFa, edtCnpj;
-   Button salvar, apagar;
+   private EditText edtFa;
+    private EditText edtCnpj;
+   private Button salvar;
+    private Button apagar;
 
-   Laboratorio lab2;
-   ArrayList<Medicamento> arrayMed;
+   private Laboratorio lab2;
+   private ArrayList<Medicamento> arrayMed;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +86,7 @@ public class CadastroLaboratorio extends AppCompatActivity {
                 lab.setCnpj(edtCnpj.getText().toString());
 
 
-                if(!validar()){
+                if(validar()){
 
                     if(salvar.getText().toString().equals("Salvar")) {
 
@@ -269,14 +271,14 @@ public class CadastroLaboratorio extends AppCompatActivity {
 
     }
 
-    public boolean validar(){
+    private boolean validar(){
         boolean resultado = false;
 
         if(edtFa.getText().toString().equals("")){
             resultado = true;
         }
 
-        return resultado;
+        return !resultado;
     }
 
 

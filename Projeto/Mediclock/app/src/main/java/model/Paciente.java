@@ -12,6 +12,7 @@ public class Paciente implements Searchable, Serializable{
     private String usuarioPaciente;
     private String sexo;
     private String title;
+    private String observacao;
 
     public Paciente(){
 
@@ -65,6 +66,18 @@ public class Paciente implements Searchable, Serializable{
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     @Override

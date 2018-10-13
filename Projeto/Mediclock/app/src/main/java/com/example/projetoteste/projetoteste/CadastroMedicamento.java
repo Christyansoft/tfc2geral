@@ -174,9 +174,9 @@ public class CadastroMedicamento extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-               validaCampos();
+                validaCampos();
 
-                if(!validaCampos2()) {
+                if(validaCampos2()) {
 
                     if (salvar.getText().toString().equals("Salvar")){
 
@@ -184,18 +184,17 @@ public class CadastroMedicamento extends AppCompatActivity{
                         med.setIdMedicamento(medicamentoRef.push().getKey());
 
                         medicamentoRef.child(med.getIdMedicamento()).setValue(med).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
 
-                            if (task.isSuccessful()) {
-                                Toast.makeText(CadastroMedicamento.this, "Medicamento cadastrado", Toast.LENGTH_SHORT).show();
-                                limpar();
-                                finish();
-                            } else {
-                                Toast.makeText(CadastroMedicamento.this, "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(CadastroMedicamento.this, "Medicamento cadastrado", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(CadastroMedicamento.this, "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
-
-                        }
                         });
 
                     }
@@ -245,7 +244,6 @@ public class CadastroMedicamento extends AppCompatActivity{
                                 if(task.isSuccessful()){
                                     Toast.makeText(CadastroMedicamento.this, "Medicamento atualizado", Toast.LENGTH_SHORT).show();
                                     updateMedicamento(med3);
-                                    limpar();
                                     finish();
 
                                 }
@@ -358,14 +356,6 @@ public class CadastroMedicamento extends AppCompatActivity{
 
     }
 
-    private void limpar() {
-        edtDesc.setText("");
-        edtLab.setText("");
-        edtPrinc.setText("");
-        edtClass.setText("");
-        edtCod.setText("");
-    }
-
     private void validaCampos(){
         if(edtDesc.getText().toString().equals("")){
             edtDesc.setError("Informe a descrição");
@@ -398,7 +388,7 @@ public class CadastroMedicamento extends AppCompatActivity{
                 || edtPrinc.getText().toString().equals("") || edtClass.getText().toString().equals("")){
             retorno = true;
         }
-        return retorno;
+        return !retorno;
     }
 
     private void updateMedicamento(final Medicamento med){

@@ -38,6 +38,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
     private ArrayList<Tratamento> arrayTrat;
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private final DatabaseReference tratRef = databaseReference.child("tratamento");
+    private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
     String usuario;
 
     @Override
@@ -77,6 +78,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
 
                 Medicamento med = new Medicamento();
 
+                med.setIdMedicamento(medicamentoRef.push().getKey());
                 med.setNomeMedicamento(edtDesc.getText().toString());
                 med.setNomeLaboratorio(edtLab.getText().toString());
                 med.setBarras1(edtBarras.getText().toString());
@@ -95,7 +97,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
                             Toast.makeText(CadastroMedicamentoLocal.this, "Erro na gravação", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CadastroMedicamentoLocal.this, "Medicamento cadastrado", Toast.LENGTH_SHORT).show();
-                            limpar();
+
                             finish();
                         }
 
@@ -111,7 +113,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
                     }else{
                         updateMedicamento(med);
                         Toast.makeText(CadastroMedicamentoLocal.this, "Medicamento atualizado", Toast.LENGTH_SHORT).show();
-                        limpar();
+
                         finish();
                     }
 
@@ -209,12 +211,6 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
         //cria o AlertDialog
         builder.create().show();
 
-    }
-
-    private void limpar(){
-        edtDesc.setText("");
-        edtLab.setText("");
-        edtBarras.setText("");
     }
 
     private void updateMedicamento(final Medicamento med) {

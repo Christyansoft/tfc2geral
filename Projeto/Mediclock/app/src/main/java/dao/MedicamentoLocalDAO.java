@@ -32,7 +32,7 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String sql = "CREATE TABLE " +TABELA+ "(" +
-                " "+IDMEDICAMENTO+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                " "+IDMEDICAMENTO+" TEXT PRIMARY KEY ,"+
                 " "+DESCRICAO+" TEXT, "+
                 " "+USUARIOMEDICAMENTO+" TEXT, "+
                 " "+LABORATORIO+" TEXT,"+BARRAS+" TEXT);";
@@ -54,6 +54,7 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         long retornoDB;
 
+        values.put(IDMEDICAMENTO, medicamento.getIdMedicamento());
         values.put(DESCRICAO, medicamento.getNomeMedicamento());
         values.put(USUARIOMEDICAMENTO, medicamento.getUsuarioMedicamento());
         values.put(LABORATORIO, medicamento.getNomeLaboratorio());
@@ -65,30 +66,6 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
         return retornoDB;
     }
 
-    public ArrayList<Medicamento> selectAllMed() {
-
-        String[] coluns = {IDMEDICAMENTO, DESCRICAO, LABORATORIO, BARRAS, USUARIOMEDICAMENTO};
-        Cursor cursor = getWritableDatabase().query(TABELA, coluns, null, null, null, null, null, null);
-
-        ArrayList<Medicamento> listaMedicamentoLocal = new ArrayList<Medicamento>();
-
-        while (cursor.moveToNext()) {
-
-            Medicamento med = new Medicamento();
-
-            int idMedicamento = cursor.getInt(0);
-
-            med.setIdMedicamento(String.valueOf(idMedicamento));
-            med.setNomeMedicamento(cursor.getString(1));
-            med.setNomeLaboratorio(cursor.getString(2));
-            med.setBarras1(cursor.getString(3));
-            med.setUsuarioMedicamento(cursor.getString(4));
-
-            listaMedicamentoLocal.add(med);
-        }
-
-        return listaMedicamentoLocal;
-    }
 
     public ArrayList<Medicamento> ListaMedicamentoFiltrado(String usuarioMedicamento){
 
@@ -102,9 +79,7 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
 
             Medicamento med = new Medicamento();
 
-            int idMedicamento = cursor.getInt(0);
-
-            med.setIdMedicamento(String.valueOf(idMedicamento));
+            med.setIdMedicamento(cursor.getString(0));
             med.setNomeMedicamento(cursor.getString(1));
             med.setUsuarioMedicamento(cursor.getString(2));
             med.setNomeLaboratorio(cursor.getString(3));

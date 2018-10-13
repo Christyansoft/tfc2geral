@@ -24,8 +24,8 @@ import java.util.Map;
 
 import model.ClasseTerapeutica;
 import model.Medicamento;
-import model.PrincipioAtivo;
 
+@SuppressWarnings("unchecked")
 public class CadastroClasseTerapeutica extends AppCompatActivity {
 
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();

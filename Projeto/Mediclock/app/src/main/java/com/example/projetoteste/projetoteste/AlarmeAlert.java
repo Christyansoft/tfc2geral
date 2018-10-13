@@ -3,40 +3,28 @@ package com.example.projetoteste.projetoteste;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import model.Alarme;
-
 public class AlarmeAlert extends AppCompatActivity {
 
     private boolean alarmActive;
-    Button desliga;
-    TextView med, quant, obs, horaAtual;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarme_alert);
 
-        med = findViewById(R.id.txtMed);
-        quant = findViewById(R.id.txtQuant);
-        obs = findViewById(R.id.txtObs);
-        horaAtual = findViewById(R.id.txtHoraAtual);
+        TextView med = findViewById(R.id.txtMed);
+        TextView quant = findViewById(R.id.txtQuant);
+        TextView obs = findViewById(R.id.txtObs);
+        TextView horaAtual = findViewById(R.id.txtHoraAtual);
 
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -59,7 +47,7 @@ public class AlarmeAlert extends AppCompatActivity {
 //        setContentView(R.layout.activity_alarme_alert);
 
 
-        desliga = findViewById(R.id.btnDesliga);
+        Button desliga = findViewById(R.id.btnDesliga);
 
         desliga.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +63,7 @@ public class AlarmeAlert extends AppCompatActivity {
 
     }
 
-    public void stopAlarme(){
+    private void stopAlarme(){
         Intent serviceIntent = new Intent(AlarmeAlert.this,AlarmService.class);
         stopService(serviceIntent);
         finish();

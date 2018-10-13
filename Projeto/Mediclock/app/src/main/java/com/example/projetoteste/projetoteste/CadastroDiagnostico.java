@@ -1,12 +1,9 @@
 package com.example.projetoteste.projetoteste;
 
 import android.app.AlertDialog;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import model.Diagnostico;
 import model.Tratamento;
@@ -33,13 +31,14 @@ import model.Tratamento;
 
 public class CadastroDiagnostico extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference diagnosticoRef = databaseReference.child("diagnostico");
-    DatabaseReference tratRef = databaseReference.child("tratamento");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference diagnosticoRef = databaseReference.child("diagnostico");
+    private final DatabaseReference tratRef = databaseReference.child("tratamento");
 
-    EditText edtDesc, edtCodCid;
-    Diagnostico diagnostico2;
-    ArrayList<Tratamento> arrayTrat;
+    private EditText edtDesc;
+    private EditText edtCodCid;
+    private Diagnostico diagnostico2;
+    private ArrayList<Tratamento> arrayTrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class CadastroDiagnostico extends AppCompatActivity {
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-        final String usuario = firebaseAuth.getCurrentUser().getEmail();
+        final String usuario = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
 
         setContentView(R.layout.activity_cadastro_diagnostico);
 
@@ -114,7 +113,6 @@ public class CadastroDiagnostico extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     updateDiagnostico(diag);
                                     Toast.makeText(CadastroDiagnostico.this, "Diagnostico atualizado", Toast.LENGTH_SHORT).show();
-                                    limpar();
                                     finish();
                                 } else {
                                     Toast.makeText(CadastroDiagnostico.this, "Erro ao atualizar diagnostico", Toast.LENGTH_SHORT).show();
@@ -159,7 +157,7 @@ public class CadastroDiagnostico extends AppCompatActivity {
 
     }
 
-    public void showDialogo(){
+    private void showDialogo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Informação de diagnóstico");
@@ -179,7 +177,7 @@ public class CadastroDiagnostico extends AppCompatActivity {
 
     }
 
-    public void confirmaDelete(){
+    private void confirmaDelete(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
@@ -197,8 +195,7 @@ public class CadastroDiagnostico extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(CadastroDiagnostico.this, "Diagnóstico apagado", Toast.LENGTH_SHORT).show();
-                            limpar();
-                            finish();
+
                         } else {
                             Toast.makeText(CadastroDiagnostico.this, "Erro ao apagar diagnostico", Toast.LENGTH_SHORT).show();
                         }
@@ -260,11 +257,6 @@ public class CadastroDiagnostico extends AppCompatActivity {
 
            }
        });
-    }
-
-    private void limpar() {
-        edtDesc.setText("");
-        edtCodCid.setText("");
     }
 
 

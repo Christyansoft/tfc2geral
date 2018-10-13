@@ -137,7 +137,6 @@ public class CadastroMedico extends AppCompatActivity {
 
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CadastroMedico.this, "Medico cadastrado", Toast.LENGTH_SHORT).show();
-                                    limpar();
                                     finish();
                                 } else {
                                     Toast.makeText(CadastroMedico.this, "Erro ao cadastrar medico", Toast.LENGTH_SHORT).show();
@@ -156,7 +155,6 @@ public class CadastroMedico extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     updateMedico(medico);
                                     Toast.makeText(CadastroMedico.this, "Medico atualizado", Toast.LENGTH_SHORT).show();
-                                    limpar();
                                     finish();
                                 } else {
                                     Toast.makeText(CadastroMedico.this, "Erro ao atualizar medico", Toast.LENGTH_SHORT).show();
@@ -240,7 +238,6 @@ public class CadastroMedico extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(CadastroMedico.this, "Medico apagado", Toast.LENGTH_SHORT).show();
-                        limpar();
                         finish();
                     } else {
                         Toast.makeText(CadastroMedico.this, "Erro ao apagar medico", Toast.LENGTH_SHORT).show();
@@ -308,13 +305,6 @@ public class CadastroMedico extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void limpar() {
-        edtNome.setText("");
-        edtRegistro.setText("");
-        spUf.setSelection(0);
-        spRegistro.setSelection(0);
     }
 
     public boolean validar(){

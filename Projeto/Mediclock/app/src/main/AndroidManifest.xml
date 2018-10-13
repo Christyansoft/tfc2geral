@@ -88,17 +88,12 @@
             android:value="26.1.0"
             tools:replace="android:value" />
 
-        <activity android:name=".Testando" />
         <activity android:name=".CadastroMedicamentoLocal" />
         <activity android:name=".ListaMedicamentosLocal"
             android:windowSoftInputMode="adjustNothing"/>
         <activity android:name=".ActionNotificacao" />
         <activity android:name=".CadastroPrincipioAtivo" />
         <activity android:name=".CadastroClasseTerapeutica" />
-        <activity
-            android:name=".TestandoActivity"
-            android:label="@string/title_activity_testando"
-            android:theme="@style/AppTheme" />
         <activity android:name=".ClassePrincipalComun"></activity>
     </application>
 

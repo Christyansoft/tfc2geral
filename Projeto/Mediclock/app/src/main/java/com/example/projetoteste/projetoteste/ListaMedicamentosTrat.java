@@ -58,9 +58,9 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
         usuario = firebaseAuth.getCurrentUser().getEmail();
 
 
-        minhalista = (ListView) findViewById(R.id.listaMedTrat);
+        minhalista = findViewById(R.id.listaMedTrat);
 
-        btnAdd = (FloatingActionButton) findViewById(R.id.btnAddMedicamentoLocal);
+        btnAdd = findViewById(R.id.btnAddMedicamentoLocal);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
         });
 
 
-      //  minhalista.setEmptyView(vazio);
+        //  minhalista.setEmptyView(vazio);
 
     }
 
@@ -120,7 +120,7 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
     }
 
     public void preencheLista(){
-        arrayList = new ArrayList<Medicamento>();
+        arrayList = new ArrayList<>();
         MedicamentoLocalDAO medDao = new MedicamentoLocalDAO(ListaMedicamentosTrat.this);
         arrayList = medDao.ListaMedicamentoFiltrado(usuario);
         medDao.close();
@@ -130,35 +130,34 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
 
         minhalista.setAdapter(mAdapter);
 
+        medicamentoRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Medicamento me = dataSnapshot.getValue(Medicamento.class);
+                arrayList.add(me);
+                mAdapter.notifyDataSetChanged();
+            }
 
-       medicamentoRef.addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-               Medicamento me = dataSnapshot.getValue(Medicamento.class);
-               arrayList.add(me);
-               mAdapter.notifyDataSetChanged();
-           }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-           @Override
-           public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
-           }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-           @Override
-           public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
-           }
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-           @Override
-           public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
-           }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-           @Override
-           public void onCancelled(DatabaseError databaseError) {
-
-           }
-       });
+            }
+        });
     }
 
     @Override

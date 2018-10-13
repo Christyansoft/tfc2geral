@@ -48,7 +48,6 @@ public class ResultadoBarras extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado_barras);
 
-     //   med = null;
 
         desc = findViewById(R.id.edtDes);
         lab = findViewById(R.id.edtLa);
@@ -90,7 +89,7 @@ public class ResultadoBarras extends AppCompatActivity {
                       progress.setMessage("Carregando dados");
                       progress.show();
 
-                    final Query medicamentoRef = databaseReference.child("geral").child("medicamento").orderByChild("barras1").equalTo(edtEnt.getText().toString());
+                    final Query medicamentoRef = databaseReference.child("medicamento").orderByChild("barras1").equalTo(edtEnt.getText().toString());
 
                     medicamentoRef.addValueEventListener(new ValueEventListener() {
                         @Override

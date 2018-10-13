@@ -268,8 +268,7 @@ public class CadastroTratamento extends AppCompatActivity {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(CadastroTratamento.this, "Tratamento cadastrado", Toast.LENGTH_SHORT).show();
-                                    limpar();
-                                    finish();
+                                    showDialogo("final");
                                 } else {
                                     Toast.makeText(CadastroTratamento.this, "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
                                 }
@@ -377,7 +376,6 @@ public class CadastroTratamento extends AppCompatActivity {
 
                             if (task.isSuccessful()) {
                                 Toast.makeText(CadastroTratamento.this, "Tratamento apagado", Toast.LENGTH_SHORT).show();
-                                limpar();
                                 finish();
                             } else {
                                 Toast.makeText(CadastroTratamento.this, "erro ao apagar", Toast.LENGTH_SHORT).show();
@@ -430,9 +428,8 @@ public class CadastroTratamento extends AppCompatActivity {
 
     public void showDialogo3(String item){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //define o titulo
+
         builder.setTitle("Cadastro");
-        //define a mensagem
 
         if(item.equals("diagnostico")){
             builder.setMessage("Você ainda não possui diagnostico cadastrado, deseja criar agora?");
@@ -498,17 +495,25 @@ public class CadastroTratamento extends AppCompatActivity {
 
     }
 
-    public void showDialogo(String item){
+    public void showDialogo(final String item){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
-        builder.setTitle("Informação de alarme");
-        //define a mensagem
 
-        if(item.equals("Medicamento")) {
+        //define a mensagem
+        if(item.equals("final")){
+            builder.setTitle("Concluído");
+            builder.setMessage("Agora que o seu tratamento está salvo, caso queira você pode entrar nele novmente e selecionar algum" +
+                    " medicamento para configurar os alarmes.");
+        }
+        else if(item.equals("Medicamento")) {
+            builder.setTitle("Informação de alarme");
+
             builder.setMessage("Não é possível excluir este medicamento pois existe alarme vinculado a ele. Caso queira realmente excluir" +
                     " apague o alarme antes.");
         }
         else{
+
+            builder.setTitle("Informação de alarme");
             builder.setMessage("Não é possível excluir este tratamento pois existe alarme vinculado a ele. Caso queira" +
                     " realmente excluir apague o(s) alarme(s) antes.");
         }
@@ -517,6 +522,10 @@ public class CadastroTratamento extends AppCompatActivity {
 
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
+
+                if(item.equals("final")){
+                    finish();
+                }
 
             }
         });
@@ -531,15 +540,6 @@ public class CadastroTratamento extends AppCompatActivity {
     public boolean validar(){
         return (!edtdiagnostico.getText().toString().equals("") && (!edtpaciente.getText().toString().equals("")));
     }
-
-    public void limpar(){
-        edtdiagnostico.setText("");
-        edtpaciente.setText("");
-        edtmedico.setText("");
-        arrayMedicamento.clear();
-        adapter.notifyDataSetChanged();
-    }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -609,10 +609,10 @@ public class CadastroTratamento extends AppCompatActivity {
 
                 if((arrayMedicamento.size()>1) && (trat2!=null)) {
 
-                    Medicamento med = new Medicamento();
+                    Medicamento med;
                     med = arrayMedicamento.get(info.position);
 
-                    Alarme ala = new Alarme();
+                    Alarme ala;
                     posologiaDAO = new PosologiaDAO(CadastroTratamento.this);
                     ala = posologiaDAO.BuscarAlarme(med.getIdMedicamento(), trat2.getIdTratamento());
                     posologiaDAO.close();

@@ -13,32 +13,33 @@
         android:id="@+id/btnApagar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/edit_text_border"
         android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/white"
         android:drawableLeft="@drawable/ic_delete_black_24dp"
         android:padding="10dp"
         android:text="Apagar"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.57"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edtNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/edit_text_border"
         android:hint="Nome"
         android:inputType="textPersonName"
-        android:padding="10dip"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/edtIdade"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -70,21 +71,22 @@
         android:id="@+id/btnSalvar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/edit_text_border"
         android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/white"
         android:drawableLeft="@drawable/ic_save_black_24dp"
         android:padding="10dp"
         android:text="Salvar"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnApagar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spSexo" />
+        app:layout_constraintTop_toBottomOf="@+id/spSexo"
+        app:layout_constraintVertical_bias="0.802" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -114,6 +116,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/paciente128" />
+
+    <EditText
+        android:id="@+id/edtObser"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text_border"
+        android:hint="Observação"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spSexo" />
 
 
 </android.support.constraint.ConstraintLayout>

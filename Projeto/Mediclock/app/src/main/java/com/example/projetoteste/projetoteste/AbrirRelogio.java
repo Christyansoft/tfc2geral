@@ -33,24 +33,18 @@ import model.Medicamento;
 
 public class AbrirRelogio extends AppCompatActivity {
 
-    List<String> list;
-    Alarme alarme2;
-    Medicamento med;
-    PosologiaDAO posologiaDAO;
-    long retornoDB;
-    ArrayList<Medicamento> arrayMedicamento;
-
-    ImageView clock;
-    Button salvar, desativar, abrirR;
+    private Alarme alarme2;
+    private Medicamento med;
+    private PosologiaDAO posologiaDAO;
+    private long retornoDB;
 
     private TimePicker relogio;
-    Context context;
+    private Context context;
 
-    ArrayList<Alarme> arrayList;
-    TextView textView, medInfo;
-    EditText quant, horario, obs;
-    Spinner spIntervalo;
-    String idTratamento;
+    private ArrayList<Alarme> arrayList;
+    private EditText quant, horario, obs;
+    private Spinner spIntervalo;
+    private String idTratamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +54,20 @@ public class AbrirRelogio extends AppCompatActivity {
         spIntervalo = findViewById(R.id.spinner);
         preencherS();
         obs = findViewById(R.id.edtObs);
-        abrirR = findViewById(R.id.btnAddH);
+        Button abrirR = findViewById(R.id.btnAddH);
         horario = findViewById(R.id.edtHorario);
         horario.setEnabled(false);
         horario.setTextColor(Color.BLACK);
         quant = findViewById(R.id.edtQtd);
-        textView = findViewById(R.id.textView);
-        medInfo = findViewById(R.id.medInfo);
+        TextView textView = findViewById(R.id.textView);
+        TextView medInfo = findViewById(R.id.medInfo);
         medInfo.setVisibility(View.INVISIBLE);
         textView.setVisibility(View.INVISIBLE);
-        salvar = findViewById(R.id.btnAlarme);
-        desativar = findViewById(R.id.btnDesativar);
+        Button salvar = findViewById(R.id.btnAlarme);
+        Button desativar = findViewById(R.id.btnDesativar);
         desativar.setVisibility(View.INVISIBLE);
 
-        clock = findViewById(R.id.clock);
+        ImageView clock = findViewById(R.id.clock);
         clock.setVisibility(View.INVISIBLE);
 
         posologiaDAO = new PosologiaDAO(AbrirRelogio.this);
@@ -100,8 +94,9 @@ public class AbrirRelogio extends AppCompatActivity {
             String info = "Horário(s) do "+alarme2.getLegenda();
             medInfo.setVisibility(View.VISIBLE);
             medInfo.setText(info);
+            medInfo.setTextColor(Color.BLACK);
             textView.setText(alarme2.getRepeating());
-
+            textView.setTextColor(Color.BLACK);
         }
 
         this.context = this;
@@ -172,12 +167,12 @@ public class AbrirRelogio extends AppCompatActivity {
 
                   //  Calendar now = Calendar.getInstance();
                     Calendar alarm = Calendar.getInstance();
-                    alarm.set(Calendar.HOUR_OF_DAY, relogio.getCurrentHour());
-                    alarm.set(Calendar.MINUTE, relogio.getCurrentMinute());
+                    alarm.set(Calendar.HOUR_OF_DAY, relogio.getHour());
+                    alarm.set(Calendar.MINUTE, relogio.getMinute());
                     alarm.set(Calendar.SECOND, 0);
                     alarm.set(Calendar.MILLISECOND, 0);
 
-                int segundo = 0;
+                int segundo;
 
                 if(arrayList.isEmpty()) {
                     alarm.set(Calendar.SECOND, gerador.nextInt(20 + 2));
@@ -198,8 +193,8 @@ public class AbrirRelogio extends AppCompatActivity {
                     if(!alarm.after(Calendar.getInstance()))
                         alarm.roll(Calendar.DATE, true);
 
-                    calendar.set(Calendar.HOUR_OF_DAY, relogio.getCurrentHour());
-                    calendar.set(Calendar.MINUTE, relogio.getCurrentMinute());
+                    calendar.set(Calendar.HOUR_OF_DAY, relogio.getHour());
+                    calendar.set(Calendar.MINUTE, relogio.getMinute());
 
                     int idPendingAnterior = 1;
 
@@ -210,8 +205,8 @@ public class AbrirRelogio extends AppCompatActivity {
 
                     Alarme alarme = new Alarme();
 
-                    alarme.setHora(relogio.getCurrentHour());
-                    alarme.setMinuto(relogio.getCurrentMinute());
+                    alarme.setHora(relogio.getHour());
+                    alarme.setMinuto(relogio.getMinute());
                     alarme.setSegundo(0);
                     alarme.setLegenda(med.getNomeMedicamento());
                     alarme.setIdPending(idPendingAnterior);
@@ -284,31 +279,13 @@ public class AbrirRelogio extends AppCompatActivity {
 
     }
 
-    public boolean Verifica(Medicamento med){
-
-        boolean resultado = false;
-
-        for(Medicamento medicamento: arrayMedicamento){
-
-            if(medicamento.getIdMedicamento().equals(med.getIdMedicamento())){
-                resultado = true;
-                break;
-            }
-            else{
-                resultado = false;
-            }
-        }
-
-        return  resultado;
-    }
-
     
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
-    public int selecionaIntervalo(){
+    private int selecionaIntervalo(){
 
         int id = spIntervalo.getSelectedItemPosition();
         int id2 = 0;
@@ -362,7 +339,7 @@ public class AbrirRelogio extends AppCompatActivity {
         return id2;
     }
 
-    public String somar(Calendar calendar, int intervalo){
+    private String somar(Calendar calendar, int intervalo){
 
         int divisao = 24/intervalo;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -397,9 +374,9 @@ public class AbrirRelogio extends AppCompatActivity {
         alerta.show();
     }
 
-    public void preencherS(){
+    private void preencherS(){
 
-        list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         list.add("Selecione o intervalo");
         list.add("2 em 2 minutos");
         list.add("1 em 1 hora");

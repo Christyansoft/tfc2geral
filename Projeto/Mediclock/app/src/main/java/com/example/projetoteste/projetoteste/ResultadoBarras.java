@@ -32,12 +32,18 @@ import model.Medicamento;
 
 public class ResultadoBarras extends AppCompatActivity {
 
-    TextView edtLab, edtPrinc, edtClass, edtDesc;
-    TextView desc, lab, prin, clas;
-    EditText edtEnt;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    Button buscar;
-    ImageButton scanner;
+    private TextView edtLab;
+    private TextView edtPrinc;
+    private TextView edtClass;
+    private TextView edtDesc;
+    private TextView desc;
+    private TextView lab;
+    private TextView prin;
+    private TextView clas;
+    private EditText edtEnt;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private Button buscar;
+    private ImageButton scanner;
     private ProgressDialog progress;
 
     private ArrayList<Medicamento> arrayList = new ArrayList<>();
@@ -150,7 +156,7 @@ public class ResultadoBarras extends AppCompatActivity {
 
     }
 
-    public void desabilita(){
+    private void desabilita(){
 
         desc.setVisibility(View.INVISIBLE);
         lab.setVisibility(View.INVISIBLE);
@@ -158,7 +164,7 @@ public class ResultadoBarras extends AppCompatActivity {
         clas.setVisibility(View.INVISIBLE);
     }
 
-    public void habilita(){
+    private void habilita(){
 
         desc.setVisibility(View.VISIBLE);
         lab.setVisibility(View.VISIBLE);
@@ -166,7 +172,7 @@ public class ResultadoBarras extends AppCompatActivity {
         clas.setVisibility(View.VISIBLE);
     }
 
-    public void limpar(){
+    private void limpar(){
         edtDesc.setText("");
         edtLab.setText("");
         edtPrinc.setText("");

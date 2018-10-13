@@ -33,19 +33,20 @@ import model.Tratamento;
 
 public class CadastroMedico extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference medicoRef = databaseReference.child("medico");
-    DatabaseReference tratRef = databaseReference.child("tratamento");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference medicoRef = databaseReference.child("medico");
+    private final DatabaseReference tratRef = databaseReference.child("tratamento");
 
     private Spinner spRegistro;
     private Spinner spUf;
-    List<String> listRegistro;
-    List<String> listUf;
-    EditText edtNome, edtRegistro;
-    String uf;
-    String tipoRegistro;
-    Medico medico2;
-    ArrayList<Tratamento> arrayTrat;
+    private List<String> listRegistro;
+    private List<String> listUf;
+    private EditText edtNome;
+    private EditText edtRegistro;
+    private String uf;
+    private String tipoRegistro;
+    private Medico medico2;
+    private ArrayList<Tratamento> arrayTrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +198,7 @@ public class CadastroMedico extends AppCompatActivity {
 
     private AlertDialog alerta;
 
-    public void showDialogo(){
+    private void showDialogo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Informação de médico");
@@ -220,7 +221,7 @@ public class CadastroMedico extends AppCompatActivity {
 
     }
 
-    public void confirmaDelete(){
+    private void confirmaDelete(){
 
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     //define o titulo
@@ -307,11 +308,11 @@ public class CadastroMedico extends AppCompatActivity {
 
     }
 
-    public boolean validar(){
+    private boolean validar(){
         return !edtNome.getText().toString().equals("") && (!spUf.getSelectedItem().equals("UF"));
     }
 
-    public void preencherRegistro(){
+    private void preencherRegistro(){
 
         spRegistro = findViewById(R.id.spRegistro);
 
@@ -327,7 +328,7 @@ public class CadastroMedico extends AppCompatActivity {
         spRegistro.setAdapter(dataAdapter);
     }
 
-    public void preencherUf(){
+    private void preencherUf(){
 
         spUf = findViewById(R.id.spUF);
         listUf = new ArrayList<String>();

@@ -26,17 +26,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.Diagnostico;
-import model.Medico;
-import model.Paciente;
 
 public class ListaDiagnosticos extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    FloatingActionButton addDiag;
-    ListView minhaLista;
-    String usuario;
-    ArrayList<Diagnostico> arrayDiag;
-    ArrayAdapter<Diagnostico> mAdapter;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private ListView minhaLista;
+    private String usuario;
+    private ArrayList<Diagnostico> arrayDiag;
+    private ArrayAdapter<Diagnostico> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +50,7 @@ public class ListaDiagnosticos extends AppCompatActivity {
 
         usuario = firebaseAuth.getCurrentUser().getEmail();
 
-        addDiag = findViewById(R.id.btnAddDiagnostico);
+        FloatingActionButton addDiag = findViewById(R.id.btnAddDiagnostico);
 
         addDiag.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +101,7 @@ public class ListaDiagnosticos extends AppCompatActivity {
     }
 
 
-    public void preencheLista(){
+    private void preencheLista(){
 
         Query pacienteRef = databaseReference.child("diagnostico").orderByChild("usuarioDiagnostico").equalTo(usuario);
 

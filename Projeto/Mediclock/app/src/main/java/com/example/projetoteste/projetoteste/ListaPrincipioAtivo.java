@@ -1,6 +1,5 @@
 package com.example.projetoteste.projetoteste;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.Query;
-import com.firebase.ui.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,28 +23,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import model.Laboratorio;
 import model.PrincipioAtivo;
 
 public class ListaPrincipioAtivo extends AppCompatActivity {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference principioRef = databaseReference.child("principioAtivo");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference principioRef = databaseReference.child("principioAtivo");
 
     private ListView minhalista;
     private ArrayList<PrincipioAtivo> arrayPrinc;
     private ArrayAdapter mAdapter;
 
-    FloatingActionButton btnAdd;
-    Context context;
-    Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_principio_ativo);
-
-        this.context = this;
 
         minhalista = findViewById(R.id.lvPrincipio);
 
@@ -58,7 +46,7 @@ public class ListaPrincipioAtivo extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        btnAdd = findViewById(R.id.btnAddPrincipio);
+        FloatingActionButton btnAdd = findViewById(R.id.btnAddPrincipio);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +93,9 @@ public class ListaPrincipioAtivo extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void preencheLista(){
-        arrayPrinc = new ArrayList<PrincipioAtivo>();
-        mAdapter = new ArrayAdapter<PrincipioAtivo>(ListaPrincipioAtivo.this,
+    private void preencheLista(){
+        arrayPrinc = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(ListaPrincipioAtivo.this,
                 android.R.layout.simple_list_item_1, arrayPrinc);
         minhalista.setAdapter(mAdapter);
 

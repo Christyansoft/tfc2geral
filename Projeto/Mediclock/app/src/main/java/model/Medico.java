@@ -68,9 +68,6 @@ public  class Medico implements Searchable, Serializable {
         this.uf = uf;
     }
 
-    public String getUsuarioMedico() {
-        return usuarioMedico;
-    }
 
     public void setUsuarioMedico(String usuarioMedico) {
         this.usuarioMedico = usuarioMedico;

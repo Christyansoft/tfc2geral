@@ -39,7 +39,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private final DatabaseReference tratRef = databaseReference.child("tratamento");
     private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
-    String usuario;
+    private String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

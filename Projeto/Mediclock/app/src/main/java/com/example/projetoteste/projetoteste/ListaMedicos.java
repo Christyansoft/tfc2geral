@@ -27,18 +27,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import model.Medico;
-import model.Paciente;
 
 
 public class ListaMedicos extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    FloatingActionButton addMedico;
-    ListView minhaLista;
-    String usuario;
-    ArrayList<Medico> arrayMedico;
-    ArrayAdapter<Medico> mAdapter;
+    private ListView minhaLista;
+    private String usuario;
+    private ArrayList<Medico> arrayMedico;
+    private ArrayAdapter<Medico> mAdapter;
 
 
     @Override
@@ -55,7 +53,7 @@ public class ListaMedicos extends AppCompatActivity {
 
         usuario = firebaseAuth.getCurrentUser().getEmail();
 
-        addMedico = findViewById(R.id.btnAddMedico);
+        FloatingActionButton addMedico = findViewById(R.id.btnAddMedico);
 
         addMedico.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +102,7 @@ public class ListaMedicos extends AppCompatActivity {
     }
 
 
-    public void preencheLista(){
+    private void preencheLista(){
 
         Query pacienteRef = databaseReference.child("medico").orderByChild("usuarioMedico").equalTo(usuario);
 

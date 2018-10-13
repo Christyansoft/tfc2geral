@@ -49,10 +49,6 @@ public class Diagnostico implements Searchable, Serializable{
         this.codigoCid = codigoCid;
     }
 
-    public String getUsuarioDiagnostico() {
-        return usuarioDiagnostico;
-    }
-
     public void setUsuarioDiagnostico(String usuarioDiagnostico) {
         this.usuarioDiagnostico = usuarioDiagnostico;
     }

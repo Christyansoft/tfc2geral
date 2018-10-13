@@ -25,7 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
@@ -42,25 +41,29 @@ import ir.mirrajabi.searchdialog.core.SearchResultListener;
 
 public class CadastroTratamento extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference tratamentoRef = databaseReference.child("tratamento");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference tratamentoRef = databaseReference.child("tratamento");
 
-    Button btnAddMed, salvar, apagar;
-    ArrayList<Medico> arrayMedicos;
-    ArrayList<Paciente> arrayPacientes;
-    ArrayList<Diagnostico> arrayDiag;
+    private Button btnAddMed;
+    private Button salvar;
+    private Button apagar;
+    private ArrayList<Medico> arrayMedicos;
+    private ArrayList<Paciente> arrayPacientes;
+    private ArrayList<Diagnostico> arrayDiag;
 
-    ListView listaMedTrat2;
-    ArrayAdapter adapter;
-    ArrayList<Medicamento> arrayMedicamento = new ArrayList<>();
+    private ListView listaMedTrat2;
+    private ArrayAdapter adapter;
+    private ArrayList<Medicamento> arrayMedicamento = new ArrayList<>();
 
-    EditText edtdiagnostico, edtpaciente, edtmedico;
+    private EditText edtdiagnostico;
+    private EditText edtpaciente;
+    private EditText edtmedico;
 
-    PrencheArray prencheArray = new PrencheArray();
-    Tratamento trat2 = null;
-    Tratamento trat = new Tratamento();
-    PosologiaDAO posologiaDAO;
-    String usuario;
+    private final PrencheArray prencheArray = new PrencheArray();
+    private Tratamento trat2 = null;
+    private final Tratamento trat = new Tratamento();
+    private PosologiaDAO posologiaDAO;
+    private String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +108,10 @@ public class CadastroTratamento extends AppCompatActivity {
             listaMedTrat2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Medicamento med = new Medicamento();
+                    Medicamento med;
                     med = (Medicamento) adapterView.getItemAtPosition(i);
 
-                    Alarme ala = new Alarme();
+                    Alarme ala;
                     posologiaDAO = new PosologiaDAO(CadastroTratamento.this);
                     ala = posologiaDAO.BuscarAlarme(med.getIdMedicamento(), trat2.getIdTratamento());
                     posologiaDAO.close();
@@ -129,7 +132,6 @@ public class CadastroTratamento extends AppCompatActivity {
             });
 
             registerForContextMenu(listaMedTrat2);
-
 
         }
 
@@ -313,11 +315,7 @@ public class CadastroTratamento extends AppCompatActivity {
 
                         }else{
                             //medico nao nulo
-                            if(edtmedico.getText().toString().equals("")){
-
-                            }
-                            else{
-
+                            if(!edtmedico.getText().toString().equals("")){
                                 Medico med2 = new Medico(trat.getMedico().getNomeMedico(), trat.getMedico().getIdMedico());
                                 trat3.setMedico(med2);
                             }
@@ -357,7 +355,7 @@ public class CadastroTratamento extends AppCompatActivity {
                 boolean existe = false;
 
                 for(Medicamento med: arrayMedicamento){
-                    Alarme ala = new Alarme();
+                    Alarme ala;
                     ala = posologiaDAO.BuscarAlarme(med.getIdMedicamento(), trat2.getIdTratamento());
 
                     if(ala.getIdMedicamento()!=null){
@@ -392,10 +390,7 @@ public class CadastroTratamento extends AppCompatActivity {
 
     }
 
-
-    private AlertDialog alerta;
-
-    public void showDialogo(final Medicamento medicamento, final String idTratamento){
+    private void showDialogo(final Medicamento medicamento, final String idTratamento){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Informação de alarme");
@@ -421,73 +416,75 @@ public class CadastroTratamento extends AppCompatActivity {
             }
         });
         //cria o AlertDialog
-        alerta = builder.create();
-        //Exibe
-        alerta.show();
+        builder.create().show();
     }
 
-    public void showDialogo3(String item){
+    private void showDialogo3(String item){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setTitle("Cadastro");
 
-        if(item.equals("diagnostico")){
-            builder.setMessage("Você ainda não possui diagnostico cadastrado, deseja criar agora?");
+        switch (item) {
+            case "diagnostico":
+                builder.setMessage("Você ainda não possui diagnostico cadastrado, deseja criar agora?");
 
-            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
 
-                    Intent intent = new Intent(CadastroTratamento.this, CadastroDiagnostico.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(CadastroTratamento.this, CadastroDiagnostico.class);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
 
-            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                }
-            });
+                    }
+                });
 
-        }else if(item.equals("paciente")){
-            builder.setMessage("Você ainda não possui paciente cadastrado, deseja criar agora?");
+                break;
+            case "paciente":
+                builder.setMessage("Você ainda não possui paciente cadastrado, deseja criar agora?");
 
-            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
 
-                    Intent intent = new Intent(CadastroTratamento.this, CadastroPaciente.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(CadastroTratamento.this, CadastroPaciente.class);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
 
-            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                }
-            });
+                    }
+                });
 
-        }else if(item.equals("medico")){
-            builder.setMessage("Você ainda não possui medico cadastrado, deseja criar agora?");
+                break;
+            case "medico":
+                builder.setMessage("Você ainda não possui medico cadastrado, deseja criar agora?");
 
-            builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface arg0, int arg1) {
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
 
-                    Intent intent = new Intent(CadastroTratamento.this, CadastroMedico.class);
-                    startActivity(intent);
+                        Intent intent = new Intent(CadastroTratamento.this, CadastroMedico.class);
+                        startActivity(intent);
 
-                }
-            });
+                    }
+                });
 
-            builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                }
-            });
+                    }
+                });
 
+                break;
         }
 
         builder.create().show();
@@ -495,7 +492,7 @@ public class CadastroTratamento extends AppCompatActivity {
 
     }
 
-    public void showDialogo(final String item){
+    private void showDialogo(final String item){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
 
@@ -530,14 +527,10 @@ public class CadastroTratamento extends AppCompatActivity {
             }
         });
 
-
-        //cria o AlertDialog
-        alerta = builder.create();
-        //Exibe
-        alerta.show();
+        builder.create().show();
     }
 
-    public boolean validar(){
+    private boolean validar(){
         return (!edtdiagnostico.getText().toString().equals("") && (!edtpaciente.getText().toString().equals("")));
     }
 

@@ -33,16 +33,18 @@ import model.Tratamento;
 
 public class CadastroPaciente extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-    DatabaseReference pacienteRef = databaseReference.child("paciente");
-    DatabaseReference tratRef = databaseReference.child("tratamento");
+    private final DatabaseReference pacienteRef = databaseReference.child("paciente");
+    private final DatabaseReference tratRef = databaseReference.child("tratamento");
 
     private Spinner spSexo;
-    List<String> list;
-    EditText edtNome, edtidade, edtObser;
-    Paciente paciente2;
-    ArrayList<Tratamento> arrayTrat;
+    private List<String> list;
+    private EditText edtNome;
+    private EditText edtidade;
+    private EditText edtObser;
+    private Paciente paciente2;
+    private ArrayList<Tratamento> arrayTrat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,7 +203,7 @@ public class CadastroPaciente extends AppCompatActivity {
         });
     }
 
-    public void showDialogo(){
+    private void showDialogo(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Informação de paciente");
@@ -221,7 +223,7 @@ public class CadastroPaciente extends AppCompatActivity {
 
     }
 
-    public void confirmaDelete(){
+    private void confirmaDelete(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
@@ -260,7 +262,7 @@ public class CadastroPaciente extends AppCompatActivity {
 
     }
 
-    public void updatePaciente(final Paciente pac){
+    private void updatePaciente(final Paciente pac){
         tratRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -298,12 +300,12 @@ public class CadastroPaciente extends AppCompatActivity {
 
     }
 
-    public boolean validar(){
+    private boolean validar(){
         return !edtNome.getText().toString().equals("") && (!edtidade.getText().toString().equals(""))
                 && (!spSexo.getSelectedItem().equals("Sexo"));
     }
 
-    public void preencherS(){
+    private void preencherS(){
 
         spSexo = findViewById(R.id.spSexo);
         list = new ArrayList<String>();

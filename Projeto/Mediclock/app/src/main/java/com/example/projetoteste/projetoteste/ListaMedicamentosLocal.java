@@ -1,6 +1,5 @@
 package com.example.projetoteste.projetoteste;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -22,19 +21,14 @@ import java.util.ArrayList;
 
 import dao.MedicamentoLocalDAO;
 import model.Medicamento;
-import model.MedicamentoLocal;
 
 public class ListaMedicamentosLocal extends AppCompatActivity {
 
-    FloatingActionButton btnAddMed;
-    ListView listaMed;
+    private ListView listaMed;
 
-    MedicamentoLocalDAO medDao;
-    Context context;
-    String usuario;
+    private String usuario;
 
-    ArrayList<Medicamento> arrayMed;
-    ArrayAdapter<Medicamento> adapterMed;
+    private ArrayAdapter<Medicamento> adapterMed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +42,9 @@ public class ListaMedicamentosLocal extends AppCompatActivity {
         toolbar.setTitle("Medicamento");
         setSupportActionBar(toolbar);
 
-        this.context = this;
+        listaMed = findViewById(R.id.lvMedicamentoLocal);
 
-        listaMed = (ListView) findViewById(R.id.lvMedicamentoLocal);
-
-        btnAddMed = (FloatingActionButton) findViewById(R.id.btnAddMedicamentoLocal);
+        FloatingActionButton btnAddMed = findViewById(R.id.btnAddMedicamentoLocal);
 
         btnAddMed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,19 +95,18 @@ public class ListaMedicamentosLocal extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public ArrayList<Medicamento> preencheLista(){
+    private void preencheLista(){
 
-        medDao = new MedicamentoLocalDAO(ListaMedicamentosLocal.this);
-        arrayMed = medDao.ListaMedicamentoFiltrado(usuario);
+        MedicamentoLocalDAO medDao = new MedicamentoLocalDAO(ListaMedicamentosLocal.this);
+        ArrayList<Medicamento> arrayMed = medDao.ListaMedicamentoFiltrado(usuario);
         medDao.close();
 
         if(listaMed != null){
-            adapterMed = new ArrayAdapter<Medicamento>(ListaMedicamentosLocal.this,
+            adapterMed = new ArrayAdapter<>(ListaMedicamentosLocal.this,
                     android.R.layout.simple_list_item_1, arrayMed);
             listaMed.setAdapter(adapterMed);
 
         }
-        return arrayMed;
     }
 
     @Override

@@ -8,9 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-import model.Alarme;
 import model.Medicamento;
-import model.MedicamentoLocal;
 
 public class MedicamentoLocalDAO extends SQLiteOpenHelper {
 
@@ -44,7 +42,7 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 
-        String sql = "DROP TABLE IS EXISTS" + TABELA;
+        String sql = "DROP TABLE IF EXISTS " + TABELA;
         db.execSQL(sql);
         onCreate(db);
 
@@ -73,7 +71,7 @@ public class MedicamentoLocalDAO extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM medicamento WHERE usuarioMedicamento = '"+usuarioMedicamento+"' ",null);
 
-        ArrayList<Medicamento> listaMedicamentoLocal = new ArrayList<Medicamento>();
+        ArrayList<Medicamento> listaMedicamentoLocal = new ArrayList<>();
 
         while (cursor.moveToNext()){
 

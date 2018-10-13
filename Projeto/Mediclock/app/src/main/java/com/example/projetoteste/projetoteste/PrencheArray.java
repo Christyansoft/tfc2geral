@@ -1,7 +1,5 @@
 package com.example.projetoteste.projetoteste;
 
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -13,7 +11,6 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 
 import model.ClasseTerapeutica;
-import model.CodigoBarras;
 import model.Diagnostico;
 import model.Laboratorio;
 import model.Medicamento;
@@ -24,22 +21,19 @@ import model.Tratamento;
 
 public class PrencheArray {
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    String usuario = firebaseAuth.getCurrentUser().getEmail();
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private final String usuario = firebaseAuth.getCurrentUser().getEmail();
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    Query pacienteRef = databaseReference.child("paciente").orderByChild("usuarioPaciente").equalTo(usuario);
-    Query medicoRef = databaseReference.child("medico").orderByChild("usuarioMedico").equalTo(usuario);
-    Query diagnosticoRef = databaseReference.child("diagnostico").orderByChild("usuarioDiagnostico").equalTo(usuario);
-    DatabaseReference medicamentoRef = databaseReference.child("medicamento");
-    DatabaseReference laboRef = databaseReference.child("laboratorio");
-    DatabaseReference princRef = databaseReference.child("principioAtivo");
-    DatabaseReference classRef = databaseReference.child("classeTerapeutica");
-    DatabaseReference tratRef = databaseReference.child("tratamento");
-    Query tratUsu = databaseReference.child("tratamento").orderByChild("usuarioTratamento").equalTo(usuario);
-
-    Medicamento medicamento = null;
-
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final Query pacienteRef = databaseReference.child("paciente").orderByChild("usuarioPaciente").equalTo(usuario);
+    private final Query medicoRef = databaseReference.child("medico").orderByChild("usuarioMedico").equalTo(usuario);
+    private final Query diagnosticoRef = databaseReference.child("diagnostico").orderByChild("usuarioDiagnostico").equalTo(usuario);
+    private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
+    private final DatabaseReference laboRef = databaseReference.child("laboratorio");
+    private final DatabaseReference princRef = databaseReference.child("principioAtivo");
+    private final DatabaseReference classRef = databaseReference.child("classeTerapeutica");
+    private final DatabaseReference tratRef = databaseReference.child("tratamento");
+    private final Query tratUsu = databaseReference.child("tratamento").orderByChild("usuarioTratamento").equalTo(usuario);
 
     public ArrayList<Medico> populaMedico() {
 
@@ -151,42 +145,6 @@ public class PrencheArray {
         });
 
         return arrayDiagno;
-    }
-
-    public Medicamento findMedBarras(String barras){
-
-        Query query = medicamentoRef.orderByChild("barras1").equalTo(barras);
-
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                medicamento = dataSnapshot.getValue(Medicamento.class);
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        return medicamento;
-
     }
 
     public ArrayList<Laboratorio> populaLab() {

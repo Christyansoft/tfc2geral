@@ -25,25 +25,23 @@ import com.google.firebase.database.Query;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import model.Medicamento;
 import model.Paciente;
 
 
 public class ListaPacientes extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    FloatingActionButton addPaciente;
-    ListView minhaLista;
-    String usuario;
-    ArrayList<Paciente> arrayPac;
-    ArrayAdapter<Paciente> mAdapter;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private ListView minhaLista;
+    private String usuario;
+    private ArrayList<Paciente> arrayPac;
+    private ArrayAdapter<Paciente> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_pacientes);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Paciente");
         setSupportActionBar(toolbar);
         minhaLista = findViewById(R.id.lvPacientes);
@@ -51,7 +49,7 @@ public class ListaPacientes extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         usuario = firebaseAuth.getCurrentUser().getEmail();
 
-        addPaciente = findViewById(R.id.btnAddPaciente);
+        FloatingActionButton addPaciente = findViewById(R.id.btnAddPaciente);
 
         addPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +98,7 @@ public class ListaPacientes extends AppCompatActivity {
     }
 
 
-    public void preencheLista(){
+    private void preencheLista(){
 
         Query pacienteRef = databaseReference.child("paciente").orderByChild("usuarioPaciente").equalTo(usuario);
 

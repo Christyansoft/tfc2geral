@@ -1,6 +1,5 @@
 package com.example.projetoteste.projetoteste;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
@@ -14,11 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.Query;
-import com.firebase.ui.FirebaseListAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,20 +24,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import model.ClasseTerapeutica;
-import model.Laboratorio;
 
 
 public class ListaClasseTerapeutica extends AppCompatActivity {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference classeRef = databaseReference.child("classeTerapeutica");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference classeRef = databaseReference.child("classeTerapeutica");
 
-    FloatingActionButton btnAdd;
-    Context context;
-    ArrayList<ClasseTerapeutica> arrayClass;
-    ArrayAdapter<ClasseTerapeutica> mAdapter;
+    private ArrayList<ClasseTerapeutica> arrayClass;
+    private ArrayAdapter<ClasseTerapeutica> mAdapter;
     Toolbar toolbar;
-    ListView minhalista;
+    private ListView minhalista;
 
 
     @Override
@@ -50,15 +42,13 @@ public class ListaClasseTerapeutica extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_classe_terapeutica);
 
-        this.context = this;
-
         minhalista = findViewById(R.id.lvClass);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Classe Terapeutica");
         setSupportActionBar(toolbar);
 
-        btnAdd = findViewById(R.id.btnAddClass);
+        FloatingActionButton btnAdd = findViewById(R.id.btnAddClass);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +95,9 @@ public class ListaClasseTerapeutica extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void preencheLista(){
-        arrayClass = new ArrayList<ClasseTerapeutica>();
-        mAdapter = new ArrayAdapter<ClasseTerapeutica>(ListaClasseTerapeutica.this,
+    private void preencheLista(){
+        arrayClass = new ArrayList<>();
+        mAdapter = new ArrayAdapter<>(ListaClasseTerapeutica.this,
                 android.R.layout.simple_list_item_1, arrayClass);
         minhalista.setAdapter(mAdapter);
 

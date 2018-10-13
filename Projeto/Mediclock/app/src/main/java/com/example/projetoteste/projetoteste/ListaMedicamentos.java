@@ -1,11 +1,8 @@
 package com.example.projetoteste.projetoteste;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Location;
-import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +14,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -29,31 +24,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import dao.MedicamentoLocalDAO;
 import model.Medicamento;
 
 public class ListaMedicamentos extends AppCompatActivity {
 
-    FloatingActionButton btnAddMed;
-    ProgressDialog progress;
+    private ProgressDialog progress;
 
-    Context context;
+    private ArrayList<Medicamento> arrayMed;
+    private ArrayAdapter<Medicamento> mAdapter;
 
-    ArrayList<Medicamento> arrayMed;
-    ArrayAdapter<Medicamento> mAdapter;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference medicamentoRef = databaseReference.child("medicamento");
-
-    Toolbar toolbar;
-    ListView minhalista;
+    private ListView minhalista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_medicamentos);
 
-        this.context = this;
         progress = new ProgressDialog(this);
         progress.setMessage("Carregando dados");
         progress.setCanceledOnTouchOutside(false);
@@ -61,11 +50,11 @@ public class ListaMedicamentos extends AppCompatActivity {
 
         minhalista = findViewById(R.id.lvMedicamento);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Medicamento");
         setSupportActionBar(toolbar);
 
-        btnAddMed = (FloatingActionButton) findViewById(R.id.btnAddMedicamento);
+        FloatingActionButton btnAddMed = findViewById(R.id.btnAddMedicamento);
 
         btnAddMed.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +105,7 @@ public class ListaMedicamentos extends AppCompatActivity {
     }
 
 
-    public void preencheLista(){
+    private void preencheLista(){
 
         arrayMed = new ArrayList<>();
         mAdapter = new ArrayAdapter<>(ListaMedicamentos.this,

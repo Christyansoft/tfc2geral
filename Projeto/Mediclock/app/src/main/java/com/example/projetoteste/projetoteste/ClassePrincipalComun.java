@@ -19,7 +19,7 @@ import model.Alarme;
 public class ClassePrincipalComun extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    PosologiaDAO posologiaDAO;
+    private PosologiaDAO posologiaDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class ClassePrincipalComun extends AppCompatActivity {
             public void onClick(View view) {
 
                 posologiaDAO = new PosologiaDAO(ClassePrincipalComun.this);
-                ArrayList<Alarme> arrayAlarme = new ArrayList<>();
+                ArrayList<Alarme> arrayAlarme;
                 arrayAlarme = posologiaDAO.selectAllAlarme();
                 posologiaDAO.close();
 
@@ -110,7 +110,7 @@ public class ClassePrincipalComun extends AppCompatActivity {
 
     }
 
-    public void showDialogo(){
+    private void showDialogo(){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Informação de conta");

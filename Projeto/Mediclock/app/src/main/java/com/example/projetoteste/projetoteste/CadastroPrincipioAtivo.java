@@ -28,15 +28,16 @@ import model.PrincipioAtivo;
 
 public class CadastroPrincipioAtivo extends AppCompatActivity {
 
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference principioRef = databaseReference.child("principioAtivo");
-    private DatabaseReference medicamentoRef = databaseReference.child("medicamento");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference principioRef = databaseReference.child("principioAtivo");
+    private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
 
-    EditText edtNome;
-    Button salvar, apagar;
+    private EditText edtNome;
+    private Button salvar;
+    private Button apagar;
 
-    PrincipioAtivo pri2;
-    ArrayList<Medicamento> arrayMed;
+    private PrincipioAtivo pri2;
+    private ArrayList<Medicamento> arrayMed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

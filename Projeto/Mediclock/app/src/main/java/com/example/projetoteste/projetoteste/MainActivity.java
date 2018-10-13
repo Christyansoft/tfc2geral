@@ -3,63 +3,23 @@ package com.example.projetoteste.projetoteste;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
-import android.os.StrictMode;
-import android.os.StrictMode.ThreadPolicy;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import model.CodigoBarras;
-import model.Medicamento;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private DatabaseReference geral = databaseReference.child("GERAL/MEDICAMENTO");
-    private DatabaseReference classeRefer = databaseReference.child("classeTerapeutica");
-    private DatabaseReference medicamentoRef = databaseReference.child("geral");
-    private DatabaseReference principioA = databaseReference.child("principioAtivo");
-    private DatabaseReference classeRef = databaseReference.child("classe2");
-    private DatabaseReference lab = databaseReference.child("geral2");
 
     private EditText user, password;
 
@@ -140,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     public void criarUsuario(View view){
 
         View view2 = getLayoutInflater().inflate(R.layout.diagcadastro, null);
@@ -215,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showDialogo(String info){
+    private void showDialogo(String info){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
         //define o titulo
         builder.setTitle("Verificação");

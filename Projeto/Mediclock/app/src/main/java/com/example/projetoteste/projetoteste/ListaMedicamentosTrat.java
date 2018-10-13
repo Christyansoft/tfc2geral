@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,40 +13,29 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
-import com.firebase.ui.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mancj.materialsearchbar.MaterialSearchBar;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import dao.MedicamentoLocalDAO;
 import model.Medicamento;
-import model.MedicamentoLocal;
 
 public class ListaMedicamentosTrat extends AppCompatActivity {
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference medicamentoRef = databaseReference.child("medicamento");
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference medicamentoRef = databaseReference.child("medicamento");
 
-    ArrayList<Medicamento> arrayList;
-    FloatingActionButton btnAdd;
-    ArrayAdapter<Medicamento> mAdapter;
-    Toolbar toolbar;
-    ListView minhalista;
-    String usuario;
+    private ArrayList<Medicamento> arrayList;
+    private ArrayAdapter<Medicamento> mAdapter;
+    private ListView minhalista;
+    private String usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +48,7 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
 
         minhalista = findViewById(R.id.listaMedTrat);
 
-        btnAdd = findViewById(R.id.btnAddMedicamentoLocal);
+        FloatingActionButton btnAdd = findViewById(R.id.btnAddMedicamentoLocal);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,13 +107,13 @@ public class ListaMedicamentosTrat extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void preencheLista(){
+    private void preencheLista(){
         arrayList = new ArrayList<>();
         MedicamentoLocalDAO medDao = new MedicamentoLocalDAO(ListaMedicamentosTrat.this);
         arrayList = medDao.ListaMedicamentoFiltrado(usuario);
         medDao.close();
 
-        mAdapter = new ArrayAdapter<Medicamento>(ListaMedicamentosTrat.this,
+        mAdapter = new ArrayAdapter<>(ListaMedicamentosTrat.this,
                 android.R.layout.simple_list_item_1, arrayList);
 
         minhalista.setAdapter(mAdapter);

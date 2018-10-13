@@ -49,14 +49,6 @@ public class Medicamento implements Serializable {
         this.barras1 = barras1;
     }
 
-    public String getBarras2() {
-        return barras2;
-    }
-
-    public void setBarras2(String barras2) {
-        this.barras2 = barras2;
-    }
-
     public String getNomeLaboratorio() {
         return nomeLaboratorio;
     }

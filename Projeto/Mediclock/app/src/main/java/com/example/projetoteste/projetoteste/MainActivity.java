@@ -23,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText user, password;
 
+
+    public boolean validaUsuario(String usuario){
+        return usuario.contains("@");
+    }
+
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -46,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         Button logar = findViewById(R.id.logar);
         user = findViewById(R.id.email);
         password = findViewById(R.id.senha);
-
-
 
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
                                                 startActivity(intent);
                                                 finish();
                                             }
-
-
 
                                         }else{
                                             Toast.makeText(MainActivity.this, "Verifique seu e-mail antes de logar", Toast.LENGTH_SHORT).show();
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
                 boolean result = false;
 
-                if((!emailC.getText().toString().contains("@")) || (emailC.getText().toString().equals(""))){
+                if((!validaUsuario(emailC.getText().toString())) || (emailC.getText().toString().equals(""))){
                     emailC.setError("Digite um e-mail valido");
                     result = true;
                 }
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         //define o titulo
         builder.setTitle("Verificação");
         //define a mensagem
-        builder.setMessage("Enviamos um e-mail para "+info+" , verifique sua caixa de entrada e clique no link enviado" +
+        builder.setMessage("Enviamos um e-mail para "+info+", verifique sua caixa de entrada e clique no link enviado" +
                 " para que possamos validar sua entrada no sistema.");
         //define um botão como positivo
 

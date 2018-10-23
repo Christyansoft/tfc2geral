@@ -1,6 +1,5 @@
 package com.example.projetoteste.projetoteste;
 
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -393,9 +392,9 @@ public class CadastroTratamento extends AppCompatActivity {
     private void showDialogo(final Medicamento medicamento, final String idTratamento){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
-        builder.setTitle("Informação de alarme");
+        builder.setTitle("Informação de posologia");
         //define a mensagem
-        builder.setMessage("Não existe alarme configurado para esta medicação, deseja criar agora?");
+        builder.setMessage("Não existe posologia vinculada a esta medicação, deseja criar agora?");
         //define um botão como positivo
 
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {

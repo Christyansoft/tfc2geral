@@ -34,12 +34,11 @@ public class ClassePrincipal extends AppCompatActivity {
         Button btnLaboratorio = findViewById(R.id.btnLaboratorio);
         Button btnPrincipio = findViewById(R.id.princiA);
         Button btnClasse = findViewById(R.id.classeT);
-        Button btnMedico = findViewById(R.id.btnMedico);
         Button btnCodigo = findViewById(R.id.btnCodBarras);
-        Button btnTra = findViewById(R.id.btnTrata);
-        Button imgPaciente = findViewById(R.id.imageView2);
-        Button btnMedLocal = findViewById(R.id.medicamento2);
-        Button btnDiag = findViewById(R.id.btnDiagnostico);
+
+
+
+        firebaseAuth=FirebaseAuth.getInstance();
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +95,6 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        btnMedico.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassePrincipal.this, ListaMedicos.class);
-                startActivity(intent);
-            }
-        });
 
         btnCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,37 +104,8 @@ public class ClassePrincipal extends AppCompatActivity {
             }
         });
 
-        btnTra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassePrincipal.this, ListaTratamento.class);
-                startActivity(intent);
-            }
-        });
 
-        imgPaciente.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassePrincipal.this, ListaPacientes.class);
-                startActivity(intent);
-            }
-        });
 
-        btnDiag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassePrincipal.this, ListaDiagnosticos.class);
-                startActivity(intent);
-            }
-        });
-
-        btnMedLocal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ClassePrincipal.this, ListaMedicamentosLocal.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void showDialogo(){

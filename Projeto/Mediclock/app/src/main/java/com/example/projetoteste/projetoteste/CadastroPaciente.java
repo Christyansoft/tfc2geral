@@ -99,12 +99,14 @@ public class CadastroPaciente extends AppCompatActivity {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         final String usuario = firebaseAuth.getCurrentUser().getEmail();
 
-        final Paciente pac = new Paciente();
+
 
         salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                final Paciente pac = new Paciente();
+                pac.setUsuarioPaciente(usuario);
 
                 if(edtNome.getText().toString().equals("")){
                     edtNome.setError("Informe o nome");
@@ -133,7 +135,6 @@ public class CadastroPaciente extends AppCompatActivity {
                 }
 
                 pac.setObservacao(edtObser.getText().toString());
-                pac.setUsuarioPaciente(usuario);
 
                 if(validar()) {
 

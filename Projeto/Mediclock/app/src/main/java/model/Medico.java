@@ -11,8 +11,8 @@ public  class Medico implements Searchable, Serializable {
     private String numRegistro;
     private String tipoRegistro;
     private String uf;
-    private String usuarioMedico;
     private String title;
+    private String usuarioMedico;
 
     public Medico(){
 
@@ -68,6 +68,9 @@ public  class Medico implements Searchable, Serializable {
         this.uf = uf;
     }
 
+    public String getUsuarioMedico() {
+        return usuarioMedico;
+    }
 
     public void setUsuarioMedico(String usuarioMedico) {
         this.usuarioMedico = usuarioMedico;

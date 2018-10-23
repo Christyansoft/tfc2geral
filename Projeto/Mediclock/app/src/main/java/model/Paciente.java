@@ -9,9 +9,9 @@ public class Paciente implements Searchable, Serializable{
     private String idPaciente;
     private String nomePaciente;
     private String idade;
-    private String usuarioPaciente;
     private String sexo;
     private String observacao;
+    private String usuarioPaciente;
 
     public Paciente(){
 
@@ -51,9 +51,7 @@ public class Paciente implements Searchable, Serializable{
         this.idade = idade;
     }
 
-    public void setUsuarioPaciente(String usuarioPaciente) {
-        this.usuarioPaciente = usuarioPaciente;
-    }
+
 
     public String getSexo() {
         return sexo;
@@ -73,6 +71,14 @@ public class Paciente implements Searchable, Serializable{
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public String getUsuarioPaciente() {
+        return usuarioPaciente;
+    }
+
+    public void setUsuarioPaciente(String usuarioPaciente) {
+        this.usuarioPaciente = usuarioPaciente;
     }
 
     @Override

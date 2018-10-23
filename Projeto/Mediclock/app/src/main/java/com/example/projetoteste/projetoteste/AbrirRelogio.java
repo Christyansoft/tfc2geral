@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -100,6 +101,11 @@ public class AbrirRelogio extends AppCompatActivity {
         }
 
         this.context = this;
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Posologia");
+        toolbar.setSubtitle(med.getNomeMedicamento());
+        setSupportActionBar(toolbar);
 
         final Calendar calendar = Calendar.getInstance();
 
@@ -247,7 +253,6 @@ public class AbrirRelogio extends AppCompatActivity {
                         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
                         alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarm.getTimeInMillis(), pending_intent);
-
 
                         finish();
 

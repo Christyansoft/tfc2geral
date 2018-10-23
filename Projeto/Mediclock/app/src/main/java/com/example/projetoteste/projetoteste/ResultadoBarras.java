@@ -179,5 +179,12 @@ public class ResultadoBarras extends AppCompatActivity {
         edtClass.setText("");
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        String barras = intent.getStringExtra("resultadoCodigo");
+        edtEnt.setText(barras);
+
+    }
+
 
  }

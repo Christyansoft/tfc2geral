@@ -34,6 +34,7 @@ import model.Medicamento;
 
 public class AbrirRelogio extends AppCompatActivity {
 
+    List<String> list;
     private Alarme alarme2;
     private Medicamento med;
     private PosologiaDAO posologiaDAO;
@@ -52,7 +53,6 @@ public class AbrirRelogio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_abrir_relogio);
 
-        spIntervalo = findViewById(R.id.spinner);
         preencherS();
         obs = findViewById(R.id.edtObs);
         Button abrirR = findViewById(R.id.btnAddH);
@@ -104,7 +104,9 @@ public class AbrirRelogio extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Posologia");
-        toolbar.setSubtitle(med.getNomeMedicamento());
+        if(alarme2==null) {
+            toolbar.setSubtitle(med.getNomeMedicamento());
+        }
         setSupportActionBar(toolbar);
 
         final Calendar calendar = Calendar.getInstance();
@@ -381,7 +383,9 @@ public class AbrirRelogio extends AppCompatActivity {
 
     private void preencherS(){
 
-        List<String> list = new ArrayList<>();
+        spIntervalo = findViewById(R.id.spinner);
+
+        list = new ArrayList<>();
         list.add("Selecione o intervalo");
         list.add("2 em 2 minutos");
         list.add("1 em 1 hora");

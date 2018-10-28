@@ -43,8 +43,6 @@ public class CadastroMedico extends AppCompatActivity {
     private List<String> listUf;
     private EditText edtNome;
     private EditText edtRegistro;
-    private String uf;
-    private String tipoRegistro;
     private Medico medico2;
     private ArrayList<Tratamento> arrayTrat;
 
@@ -74,8 +72,8 @@ public class CadastroMedico extends AppCompatActivity {
             int posicao1 = 0;
             int posicao2 = 0;
 
-            uf = medico2.getUf();
-            tipoRegistro = medico2.getTipoRegistro();
+            String uf = medico2.getUf();
+            String tipoRegistro = medico2.getTipoRegistro();
 
 
             for(int j = 0; j<listRegistro.size();j++){
@@ -316,13 +314,13 @@ public class CadastroMedico extends AppCompatActivity {
 
         spRegistro = findViewById(R.id.spRegistro);
 
-        listRegistro = new ArrayList<String>();
+        listRegistro = new ArrayList<>();
 
         listRegistro.add("Tipo de registro");
         listRegistro.add("CRM");
         listRegistro.add("CRO");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, listRegistro);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spRegistro.setAdapter(dataAdapter);
@@ -331,7 +329,7 @@ public class CadastroMedico extends AppCompatActivity {
     private void preencherUf(){
 
         spUf = findViewById(R.id.spUF);
-        listUf = new ArrayList<String>();
+        listUf = new ArrayList<>();
 
         listUf.add("UF");
         listUf.add("AC");
@@ -362,7 +360,7 @@ public class CadastroMedico extends AppCompatActivity {
         listUf.add("SE");
         listUf.add("TO");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, listUf);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spUf.setAdapter(dataAdapter);

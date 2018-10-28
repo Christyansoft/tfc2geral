@@ -33,7 +33,6 @@ public class ListaClasseTerapeutica extends AppCompatActivity {
 
     private ArrayList<ClasseTerapeutica> arrayClass;
     private ArrayAdapter<ClasseTerapeutica> mAdapter;
-    Toolbar toolbar;
     private ListView minhalista;
 
 

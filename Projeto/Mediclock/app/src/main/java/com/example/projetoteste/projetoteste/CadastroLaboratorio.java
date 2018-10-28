@@ -35,9 +35,8 @@ public class CadastroLaboratorio extends AppCompatActivity {
    private EditText edtFa;
     private EditText edtCnpj;
    private Button salvar;
-    private Button apagar;
 
-   private Laboratorio lab2;
+    private Laboratorio lab2;
    private ArrayList<Medicamento> arrayMed;
 
     @SuppressLint("SetTextI18n")
@@ -53,7 +52,7 @@ public class CadastroLaboratorio extends AppCompatActivity {
         edtFa = findViewById(R.id.edtNomeF);
         edtCnpj = findViewById(R.id.edtCnpj);
         salvar = findViewById(R.id.btnSalvar);
-        apagar = findViewById(R.id.btnApagar);
+        Button apagar = findViewById(R.id.btnApagar);
 
         apagar.setVisibility(View.INVISIBLE);
 

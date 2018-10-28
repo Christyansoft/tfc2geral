@@ -309,12 +309,12 @@ public class CadastroPaciente extends AppCompatActivity {
     private void preencherS(){
 
         spSexo = findViewById(R.id.spSexo);
-        list = new ArrayList<String>();
+        list = new ArrayList<>();
         list.add("Sexo");
         list.add("Masculino");
         list.add("Feminino");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spSexo.setAdapter(dataAdapter);

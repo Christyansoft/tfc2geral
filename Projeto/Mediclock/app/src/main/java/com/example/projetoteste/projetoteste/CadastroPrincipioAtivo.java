@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Laboratorio;
 import model.Medicamento;
 import model.PrincipioAtivo;
 
@@ -34,7 +33,6 @@ public class CadastroPrincipioAtivo extends AppCompatActivity {
 
     private EditText edtNome;
     private Button salvar;
-    private Button apagar;
 
     private PrincipioAtivo pri2;
     private ArrayList<Medicamento> arrayMed;
@@ -50,7 +48,7 @@ public class CadastroPrincipioAtivo extends AppCompatActivity {
 
         edtNome = findViewById(R.id.edtNomePrinc);
         salvar = findViewById(R.id.btnSalvar);
-        apagar = findViewById(R.id.btnApagar);
+        Button apagar = findViewById(R.id.btnApagar);
 
         apagar.setVisibility(View.INVISIBLE);
 

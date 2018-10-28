@@ -2,7 +2,6 @@ package com.example.projetoteste.projetoteste;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +65,7 @@ public class CadastroMedicamentoLocal extends AppCompatActivity {
             edtLab.setText(med2.getNomeLaboratorio());
             edtBarras.setText(med2.getBarras1());
             apagar.setVisibility(View.VISIBLE);
+            salvar.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_refresh_black_24dp, 0, 0, 0);
             salvar.setText("Atualizar");
         }
 

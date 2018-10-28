@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,15 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import model.CodigoBarras;
 import model.Medicamento;
@@ -41,13 +33,8 @@ public class ResultadoBarras extends AppCompatActivity {
     private TextView prin;
     private TextView clas;
     private EditText edtEnt;
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    private Button buscar;
-    private ImageButton scanner;
+    private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private ProgressDialog progress;
-
-    private ArrayList<Medicamento> arrayList = new ArrayList<>();
-    Medicamento med = new Medicamento();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +52,8 @@ public class ResultadoBarras extends AppCompatActivity {
         edtLab = findViewById(R.id.edtLabBarras);
         edtPrinc = findViewById(R.id.edtPrincBarras);
         edtClass = findViewById(R.id.edtClassBarras);
-        buscar = findViewById(R.id.btnBusca);
-        scanner = findViewById(R.id.addCod);
+        Button buscar = findViewById(R.id.btnBusca);
+        ImageButton scanner = findViewById(R.id.addCod);
 
         desabilita();
 
@@ -78,8 +65,6 @@ public class ResultadoBarras extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        final ArrayList<Medicamento> params=new ArrayList();
 
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override

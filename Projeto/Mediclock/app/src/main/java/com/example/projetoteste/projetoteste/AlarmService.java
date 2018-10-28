@@ -1,8 +1,6 @@
 package com.example.projetoteste.projetoteste;
 
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -14,16 +12,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-
-import dao.PosologiaDAO;
 
 public class AlarmService extends Service {
 
     private boolean rodando;
     private Ringtone r;
-    private PosologiaDAO posologiaDAO;
 
     @Nullable
     @Override
@@ -35,8 +28,6 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-
-        posologiaDAO = new PosologiaDAO(AlarmService.this);
 
         String legenda = intent.getStringExtra("legenda");
         String quantidade = intent.getStringExtra("quantidade");
@@ -99,37 +90,6 @@ public class AlarmService extends Service {
 
     }
 
-
-    private void sendNotification(String msg, int idPending) {
-        Log.d("AlarmService", "Preparing to send notification...: " + msg);
-        NotificationManager alarmNotificationManager = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-
-        Intent intent = new Intent(AlarmService.this, ActionNotificacao.class);
-        intent.putExtra("idPending", idPending);
-
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, idPending,
-                intent, 0);
-
-        NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle("Hora de tomar seu medicamento")
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setSmallIcon(R.drawable.ic_medication)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
-                .setContentText(msg)
-                .setContentInfo("teste de informação")
-                .setAutoCancel(true)
-                .setOngoing(true)
-                .addAction(R.drawable.ic_close_black_24dp, "Dispensar", contentIntent )
-                .setContentIntent(contentIntent);
-
-
-
-        alamNotificationBuilder.setContentIntent(contentIntent);
-        alarmNotificationManager.notify(idPending, alamNotificationBuilder.build());
-
-    }
 
     @Override
     public void onDestroy() {

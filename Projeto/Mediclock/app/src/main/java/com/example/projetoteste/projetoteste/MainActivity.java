@@ -1,5 +1,6 @@
 package com.example.projetoteste.projetoteste;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,13 +17,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText user, password;
-
+    private ProgressDialog progress;
 
     public boolean validaUsuario(String usuario){
         return usuario.contains("@");
@@ -62,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Digite e-mail e senha para logar", Toast.LENGTH_SHORT).show();
                 } else {
 
+                    progress = new ProgressDialog(MainActivity.this);
+                    progress.setMessage("Carregando");
+                    progress.setCanceledOnTouchOutside(false);
+                    progress.show();
+
                     firebaseAuth.signInWithEmailAndPassword(textoEmail, textoSenha)
                             .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -72,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
 
                                             if(firebaseAuth.getCurrentUser().getEmail().equals("christyansoftperes@gmail.com")) {
 
-                                                Toast.makeText(MainActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                                                progress.dismiss();
                                                 Intent intent = new Intent(MainActivity.this, ClassePrincipal.class);
                                                 startActivity(intent);
                                                 finish();
                                             }
                                             else{
-                                                Toast.makeText(MainActivity.this, "Logado com sucesso", Toast.LENGTH_SHORT).show();
+                                                progress.dismiss();
                                                 Intent intent = new Intent(MainActivity.this, ClassePrincipalComun.class);
                                                 startActivity(intent);
                                                 finish();
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
 
                                     } else {
+                                        progress.dismiss();
                                         Toast.makeText(MainActivity.this, "Usuário não cadastrado, ou erro de login", Toast.LENGTH_SHORT).show();
                                     }
                                 }

@@ -4,7 +4,6 @@ import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.Color;
@@ -34,7 +33,7 @@ import model.Medicamento;
 
 public class AbrirRelogio extends AppCompatActivity {
 
-    List<String> list;
+    private List<String> list;
     private Alarme alarme2;
     private Medicamento med;
     private PosologiaDAO posologiaDAO;
@@ -350,35 +349,15 @@ public class AbrirRelogio extends AppCompatActivity {
 
         int divisao = 24/intervalo;
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String repeticao = "";
+        StringBuilder repeticao = new StringBuilder();
 
         for(int i = 0; i< intervalo; i++){
             calendar.add(Calendar.HOUR, divisao);
-            repeticao = repeticao+ sdf.format(calendar.getTime())+", \t";
+            repeticao.append(sdf.format(calendar.getTime())).append(", \t");
         }
       //  showDialogo(repeticao);
 
-        return repeticao;
-    }
-
-    public void showDialogo(String info){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //define o titulo
-        builder.setTitle(info);
-        //define a mensagem
-        builder.setMessage("");
-        //define um botão como positivo
-
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface arg0, int arg1) {
-
-            }
-        });
-
-        //cria o AlertDialog
-        AlertDialog alerta = builder.create();
-        //Exibe
-        alerta.show();
+        return repeticao.toString();
     }
 
     private void preencherS(){
@@ -402,7 +381,7 @@ public class AbrirRelogio extends AppCompatActivity {
         list.add("12 em 12 horas");
         list.add("1x ao dia");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spIntervalo.setAdapter(dataAdapter);

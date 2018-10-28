@@ -43,9 +43,7 @@ public class CadastroTratamento extends AppCompatActivity {
     private final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private final DatabaseReference tratamentoRef = databaseReference.child("tratamento");
 
-    private Button btnAddMed;
     private Button salvar;
-    private Button apagar;
     private ArrayList<Medico> arrayMedicos;
     private ArrayList<Paciente> arrayPacientes;
     private ArrayList<Diagnostico> arrayDiag;
@@ -73,9 +71,9 @@ public class CadastroTratamento extends AppCompatActivity {
         edtpaciente = findViewById(R.id.edtPaciente);
         edtmedico = findViewById(R.id.edtMedico);
         listaMedTrat2 = findViewById(R.id.listaMedicamentoTra);
-        btnAddMed = findViewById(R.id.btnAddMedicamento);
+        Button btnAddMed = findViewById(R.id.btnAddMedicamento);
         salvar = findViewById(R.id.salvar);
-        apagar = findViewById(R.id.btnApagar);
+        Button apagar = findViewById(R.id.btnApagar);
 
         apagar.setVisibility(View.INVISIBLE);
 
@@ -496,22 +494,24 @@ public class CadastroTratamento extends AppCompatActivity {
         //define o titulo
 
         //define a mensagem
-        if(item.equals("final")){
-            builder.setTitle("Concluído");
-            builder.setMessage("Agora que o seu tratamento está salvo, caso queira você pode entrar nele novmente e selecionar algum" +
-                    " medicamento para configurar os alarmes.");
-        }
-        else if(item.equals("Medicamento")) {
-            builder.setTitle("Informação de alarme");
+        switch (item) {
+            case "final":
+                builder.setTitle("Concluído");
+                builder.setMessage("Agora que o seu tratamento está salvo, caso queira você pode entrar nele novmente e selecionar algum" +
+                        " medicamento para configurar os alarmes.");
+                break;
+            case "Medicamento":
+                builder.setTitle("Informação de alarme");
 
-            builder.setMessage("Não é possível excluir este medicamento pois existe alarme vinculado a ele. Caso queira realmente excluir" +
-                    " apague o alarme antes.");
-        }
-        else{
+                builder.setMessage("Não é possível excluir este medicamento pois existe alarme vinculado a ele. Caso queira realmente excluir" +
+                        " apague o alarme antes.");
+                break;
+            default:
 
-            builder.setTitle("Informação de alarme");
-            builder.setMessage("Não é possível excluir este tratamento pois existe alarme vinculado a ele. Caso queira" +
-                    " realmente excluir apague o(s) alarme(s) antes.");
+                builder.setTitle("Informação de alarme");
+                builder.setMessage("Não é possível excluir este tratamento pois existe alarme vinculado a ele. Caso queira" +
+                        " realmente excluir apague o(s) alarme(s) antes.");
+                break;
         }
 
         //define um botão como positivo

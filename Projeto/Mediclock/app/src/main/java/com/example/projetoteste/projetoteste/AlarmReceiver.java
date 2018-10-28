@@ -3,8 +3,6 @@ package com.example.projetoteste.projetoteste;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
 
 
 public class AlarmReceiver extends BroadcastReceiver {

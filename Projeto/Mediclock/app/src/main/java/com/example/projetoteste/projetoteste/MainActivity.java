@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
                                         }else{
                                             Toast.makeText(MainActivity.this, "Verifique seu e-mail antes de logar", Toast.LENGTH_SHORT).show();
+                                            progress.dismiss();
+                                            firebaseAuth.signOut();
                                         }
 
                                     } else {
@@ -143,42 +145,79 @@ public class MainActivity extends AppCompatActivity {
 
                     firebaseAuth = FirebaseAuth.getInstance();
 
-                    firebaseAuth.createUserWithEmailAndPassword(emailC.getText().toString(), senhaC.getText().toString())
-                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(MainActivity.this, "Criado com sucesso", Toast.LENGTH_SHORT).show();
+                    String email = emailC.getText().toString();
+                    String senha = senhaC.getText().toString();
 
-                                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    firebaseAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            if(task.isSuccessful()){
+
+                                if(firebaseAuth.getCurrentUser().isEmailVerified()){
+                                    dialog.dismiss();
+                                    showDialogo2(1);
+                                    firebaseAuth.signOut();
+                                }
+                                else{
+                                    dialog.dismiss();
+                                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(MainActivity.this, new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            showDialogo2(2);
+                                            firebaseAuth.signOut();
+                                        }
+                                    });
+
+                                }
+
+                            }
+                            else{
+
+                                firebaseAuth.createUserWithEmailAndPassword(emailC.getText().toString(), senhaC.getText().toString())
+                                        .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                             @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if(task.isSuccessful()){
-                                                    dialog.dismiss();
-                                                    showDialogo(emailC.getText().toString());
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(MainActivity.this, "Criado com sucesso", Toast.LENGTH_SHORT).show();
+
+                                                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if(task.isSuccessful()){
+                                                                dialog.dismiss();
+                                                                showDialogo(emailC.getText().toString());
+                                                                firebaseAuth.signOut();
+                                                            }
+                                                            else{
+                                                                Toast.makeText(MainActivity.this, "nao enviado", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+
+                                                    firebaseAuth.signOut();
+
+
+                                                } else {
+                                                    Toast.makeText(MainActivity.this, "Erro ao criar usuário", Toast.LENGTH_SHORT).show();
                                                 }
-                                                else{
-                                                    Toast.makeText(MainActivity.this, "nao enviado", Toast.LENGTH_SHORT).show();
-                                                }
+
                                             }
                                         });
 
-                                        firebaseAuth.signOut();
+                            }
 
 
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "Erro ao criar usuário", Toast.LENGTH_SHORT).show();
-                                    }
+                        }
+                    });
 
-                                }
-                            });
                 }
 
-            }
-        });
+
+        }});
 
 
-    }
+        }
 
     private void showDialogo(String info){
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
@@ -201,6 +240,38 @@ public class MainActivity extends AppCompatActivity {
         alerta.show();
     }
 
+    private void showDialogo2(int num){
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Verificação");
+        //define a mensagem
+
+        switch (num){
+            case 1:
+                builder.setMessage("Este usuário já esta cadastrado, Faça login na tela principal normalmente");
+               break;
+            case 2:
+                builder.setMessage("Este usuário ja esta cadastrado, Reenviamos um novo link de verificação," +
+                        " Entre na sua caixa de entrada e clique no link para validar sua inscrição no sistema");
+                break;
+            case 3:
+                builder.setMessage("O link para redefinir a senha foi enviado.");
+                break;
+        }
+
+        //define um botão como positivo
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+
+            }
+        });
+
+        //cria o AlertDialog
+        android.app.AlertDialog alerta = builder.create();
+        //Exibe
+        alerta.show();
+    }
 
     public void redefinirSenha(View view){
 
@@ -223,8 +294,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
 
                         if(task.isSuccessful()){
-                            Toast.makeText(MainActivity.this, "E-mail enviado com sucesso", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
+                            showDialogo2(3);
                         }
                         else{
                             Toast.makeText(MainActivity.this, "Erro ao enviar, ou e-mail nao encontrado", Toast.LENGTH_SHORT).show();

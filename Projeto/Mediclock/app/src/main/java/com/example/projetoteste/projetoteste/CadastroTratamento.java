@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -261,6 +262,9 @@ public class CadastroTratamento extends AppCompatActivity {
                     trat.setArrayMedicamento(arrayMedicamento);
 
                     if (salvar.getText().toString().equals("Salvar")){
+
+                        Gson js = new Gson();
+
 
                         tratamentoRef.child(trat.getIdTratamento()).setValue(trat).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

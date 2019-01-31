@@ -5,13 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
 import model.Alarme;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class PosologiaDAO extends SQLiteOpenHelper {
 

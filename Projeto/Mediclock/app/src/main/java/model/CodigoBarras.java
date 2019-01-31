@@ -12,20 +12,8 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.projetoteste.projetoteste.CadastroMedicamento;
-import com.example.projetoteste.projetoteste.ClassePrincipal;
-import com.example.projetoteste.projetoteste.MainActivity;
-import com.example.projetoteste.projetoteste.PrencheArray;
 import com.example.projetoteste.projetoteste.ResultadoBarras;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.zxing.Result;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 

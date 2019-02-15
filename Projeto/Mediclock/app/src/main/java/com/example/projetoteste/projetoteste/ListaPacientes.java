@@ -39,6 +39,9 @@ public class ListaPacientes extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_lista_pacientes);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -99,6 +102,7 @@ public class ListaPacientes extends AppCompatActivity {
 
 
     private void preencheLista(){
+
 
         Query pacienteRef = databaseReference.child("paciente").orderByChild("usuarioPaciente").equalTo(usuario);
 

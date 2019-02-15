@@ -143,17 +143,22 @@ public class CadastroPaciente extends AppCompatActivity {
 
                         pac.setIdPaciente(pacienteRef.push().getKey());
 
-                        pacienteRef.child(pac.getIdPaciente()).setValue(pac).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(CadastroPaciente.this, "Paciente cadastrado", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                } else {
-                                    Toast.makeText(CadastroPaciente.this, "Erro ao cadastrar paciente", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        pacienteRef.child(pac.getIdPaciente()).setValue(pac);
+                        Toast.makeText(CadastroPaciente.this, "cadastrado", Toast.LENGTH_SHORT).show();
+                        finish();
+
+
+//                        pacienteRef.child(pac.getIdPaciente()).setValue(pac).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if (task.isSuccessful()) {
+//                                    Toast.makeText(CadastroPaciente.this, "Paciente cadastrado", Toast.LENGTH_SHORT).show();
+//                                    finish();
+//                                } else {
+//                                    Toast.makeText(CadastroPaciente.this, "Erro ao cadastrar paciente", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
                     }
                     else{
                         pac.setIdPaciente(paciente2.getIdPaciente());

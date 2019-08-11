@@ -1,1 +1,1 @@
-<img src=”Projeto/Mediclock/app/src/main/res/drawable/imagem3.png”>
+## APLICATIVO PARA ACOMPANHAMENTO E CONTROLE POSOLÓGICO DE PACIENTES
